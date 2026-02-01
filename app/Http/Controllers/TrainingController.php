@@ -9,6 +9,7 @@ use App\Enums\LevelEnum;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TrainingController extends Controller
 {
@@ -25,8 +26,19 @@ class TrainingController extends Controller
      */
     public function show()
     {
+        // Get Random trick
+        //$trick = Trick::inRandomOrder()->first();
+
+        // Get a list of 4 random tricks
+        $tricks  = Trick::inRandomOrder()->limit(4)->get();
+
+        // Get the first one from the random lst
+        $trick = $tricks->first();
+
+        // Add more description
         return Inertia::render('training/Show',[
-            'trick' => Trick::inRandomOrder()->first(),
+            'trick'        => $trick,
+            'tricks'       => $tricks,
             'levelOptions' => LevelEnum::options(),
             'judgeOptions' => Judge::all(),
         ]);

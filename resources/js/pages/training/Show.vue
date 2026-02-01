@@ -3,6 +3,7 @@ import { Head, useForm } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import InputError from '@/components/InputError.vue'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -11,6 +12,7 @@ import { show, store } from '@/routes/trainings'
 
 const props = defineProps({ 
     trick: Object,
+    tricks: Array,
     levelOptions: Array,
     judgeOptions: Array,
 })
@@ -83,8 +85,14 @@ const handleSubmit = () => {
                 </div>
                 <div class="space-y-2">
                     <Label for="trick_name">What's the trick called?</Label>
-                    <Input id="trick_name" type="text" name="trick_name" required autocomplete="trick-name"
-                        v-model="form.trick_name" />
+                    <!--<Input id="trick_name" type="text" name="trick_name" required autocomplete="trick-name"
+                        v-model="form.trick_name" /> -->
+                    <RadioGroup v-model="form.trick_name" id="trick_name" name="trick_name">
+                        <div class="flex items-center space-x-2" v-for="line in tricks">
+                            <RadioGroupItem :id="line.id" :value="line.name" />
+                            <Label :for="line.id">{{ line.name }}</Label>
+                        </div>
+                    </RadioGroup>
                     <InputError :message="form.errors.trick_name" />
                 </div>
                 <Button type="submit" :disabled="form.processing">Submit</Button>

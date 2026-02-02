@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Judge;
+use App\Models\Trick;
 use Inertia\Inertia;
 
 class JudgeController extends Controller
@@ -43,9 +44,12 @@ class JudgeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Judge $judge)
     {
-        //
+        return Inertia::render('judges/Show',[
+            'judge' => $judge,
+            'tricks' => Trick::where('judge_id',$judge->id)->get(),
+        ]);
     }
 
     /**

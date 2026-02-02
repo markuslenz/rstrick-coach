@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/judges/{judge}/edit', [JudgeController::class, 'edit'])->name('judges.edit');
     Route::patch('/judges/{judge}', [JudgeController::class, 'update'])->name('judges.update');
     Route::delete('/judges/{judge}',[JudgeController::class, 'destroy'])->name('judges.destroy');
+    Route::get('/judges/{judge}/view',[JudgeController::class, 'show'])->name('judges.show');
     // Training Routes
     Route::get('/trainings',[TrainingController::class, 'index'])->name('trainings.index');
     Route::get('/trainings/view/{judge?}',[TrainingController::class, 'show'])->name('trainings.show');

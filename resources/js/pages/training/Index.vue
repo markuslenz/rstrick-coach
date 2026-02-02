@@ -7,7 +7,7 @@ import { index, show } from '@/routes/trainings'
 
 const page = usePage()
 
-const user = page.props.auth.user;
+const user = page.props.auth.user
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -46,7 +46,7 @@ const props = defineProps<Props>()
                     </div>
                 </div>
                 <div 
-                    v-for="judge in judges"
+                    v-for="judge in props.judges"
                     class="relative aspect-video overflow-hidden rounded-xl border-3 border-sidebar-border/70 dark:border-sidebar-border bg-gray-100 text-gray-700"
                 >
                     <div class="text-2xl font-extrabold text-center py-4">{{ judge.name }}</div>

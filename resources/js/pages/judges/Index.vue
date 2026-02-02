@@ -3,7 +3,7 @@ import { Link, Head, usePage, router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
-import { index, create, edit, destroy } from '@/routes/judges'
+import { index, create, edit, destroy, show } from '@/routes/judges'
 import { Rocket, MoreHorizontal, Eye, SquarePen, Trash } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
@@ -27,7 +27,7 @@ interface Judge {
     name: string,
 }
 
-interface Props{
+interface Props {
     judges: Judge[];
 }
 
@@ -37,13 +37,13 @@ const selectedRowId = ref<Number | null>(null)
 const selectedRowName = ref<String | null>(null)
 
 function confirmDelete(id: Number, name: String) {
-  selectedRowId.value = id
-  selectedRowName.value = name
-  openDialog.value = true
+    selectedRowId.value = id
+    selectedRowName.value = name
+    openDialog.value = true
 }
 
 function deleteRow() {
-    if(!selectedRowId.value) return
+    if (!selectedRowId.value) return
     router.delete(destroy(selectedRowId.value).url)
     openDialog.value = false
     selectedRowId.value = null
@@ -67,7 +67,7 @@ const props = defineProps<Props>()
                     {{ page.props.flash.message }}
                 </AlertDescription>
             </Alert>
-            
+
             <Button class="mb-3" v-if="user.role == 'admin'">
                 <Link :href="create()">New Judge Type</Link>
             </Button>
@@ -96,15 +96,16 @@ const props = defineProps<Props>()
                                         <DropdownMenuContent align="end">
                                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                             <DropdownMenuItem class="flex gap-2">
-                                                <SquarePen class="h-4 w-4"/>
+                                                <SquarePen class="h-4 w-4" />
                                                 <Link :href="edit(judge.id).url">Edit</Link>
                                             </DropdownMenuItem>
-                                            <!--<DropdownMenuItem class="flex gap-2">
-                                                <Eye class="h-4 w-4"/>
+                                            <DropdownMenuItem class="flex gap-2">
+                                                <Eye class="h-4 w-4" />
                                                 <Link :href="show(judge.id).url">View</Link>
-                                            </DropdownMenuItem> -->
-                                            <DropdownMenuItem @select.prevent="confirmDelete(judge.id, judge.name)" class="flex gap-2 text-red-600">
-                                                <Trash class="h-4 w-4"/>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem @select.prevent="confirmDelete(judge.id, judge.name)"
+                                                class="flex gap-2 text-red-600">
+                                                <Trash class="h-4 w-4" />
                                                 <span>Delete</span>
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
@@ -114,21 +115,22 @@ const props = defineProps<Props>()
                                             <DialogHeader>
                                                 <DialogTitle>Delete Judge Type</DialogTitle>
                                                 <DialogDescription>
-                                                    Are you sure you want to delete the Judge Type <b>{{ selectedRowName }}</b>?
+                                                    Are you sure you want to delete the Judge Type <b>{{ selectedRowName
+                                                        }}</b>?
                                                 </DialogDescription>
                                             </DialogHeader>
                                             <DialogFooter>
                                                 <DialogClose as-child>
                                                     <Button variant="outline">Cancel</Button>
                                                 </DialogClose>
-                                                <Button class="bg-red-600"
-                                                    @click="deleteRow">Delete</Button>
+                                                <Button class="bg-red-600" @click="deleteRow">Delete</Button>
                                             </DialogFooter>
                                         </DialogContent>
                                     </Dialog>
                                 </div>
-                                <div v-else>
-                                    
+                                <div class="flex gap-2" v-else>
+                                    <Eye class="h-4 w-4" />
+                                    <Link :href="show(judge.id).url">View</Link>
                                 </div>
                             </TableCell>
                         </TableRow>

@@ -56,7 +56,6 @@ class TrickController extends Controller
     public function show(Trick $trick)
     {
         return Inertia::render('tricks/Show',[
-            //'trickData' => Trick::with('judge')->find($trick),
             'trick' => $trick,
             'judge' => Judge::findOrFail($trick->judge_id),
         ]);

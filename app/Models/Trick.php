@@ -4,9 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Trick extends Model
 {
+    protected static function booted()
+    {
+        static::deleting(function ($trick) {
+            $trick->attempts()->delete();
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,5 +34,13 @@ class Trick extends Model
     public function judge(): BelongsTo
     {
         return $this->belongsTo(Judge::class);
+    }
+
+    /**
+     * Get the attempts associated with the trick
+     */
+    public function attempts(): HasMany
+    {
+        return $this->hasMany(Attempt::class);
     }
 }

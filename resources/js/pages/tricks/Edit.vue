@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { Head, useForm, usePage } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { index, edit, update } from '@/routes/tricks';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
+import { Head, useForm, usePage } from '@inertiajs/vue3'
+import AppLayout from '@/layouts/AppLayout.vue'
+import { type BreadcrumbItem } from '@/types'
+import { index, edit, update } from '@/routes/tricks'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import InputError from '@/components/InputError.vue'
+import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Rocket } from 'lucide-vue-next';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Rocket } from 'lucide-vue-next'
+import { Textarea } from '@/components/ui/textarea'
 
 const page = usePage();
 
@@ -110,8 +111,7 @@ const handleSubmit = () => {
                 </div>
                 <div class="space-y-2">
                     <Label for="description">Description</Label>
-                    <Input id="description" type="text" name="description" required autofocus
-                        autocomplete="trick-description" v-model="form.description" />
+                    <Textarea id="description" type="text" name="description" v-model="form.description" />
                     <InputError :message="form.errors.description" />
                 </div>
                 <Button type="submit" :disabled="form.processing">Update Trick</Button>

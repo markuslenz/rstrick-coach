@@ -18,29 +18,40 @@ class TrainingController extends Controller
      */
     public function index()
     {
-
+        return Inertia::render('training/Index',[
+            'judges' => Judge::all()
+        ]);
     }
 
     /**
      * Display a random trick from the database.
      */
-    public function show()
+    public function show(Judge $judge=null)
     {
-        // Get Random trick
-        //$trick = Trick::inRandomOrder()->first();
-
-        // Get a list of 4 random tricks
-        $tricks  = Trick::inRandomOrder()->limit(4)->get();
+        // Check for Judges
+        if(is_null($judge)) {
+            // Get a list of 4 random tricks
+            $tricks  = Trick::inRandomOrder()->limit(4)->get();
+            $judgeID = null;
+        } else {
+            // Get a list of 4 random tricks
+            $tricks  = Trick::where('judge_id', $judge->id)->inRandomOrder()->limit(4)->get();
+            $judgeID = $judge->id;
+        }
 
         // Get the first one from the random lst
         $trick = $tricks->first();
 
+        // Shuffle the result again
+        $newTricks = $tricks->shuffle();
+
         // Add more description
         return Inertia::render('training/Show',[
             'trick'        => $trick,
-            'tricks'       => $tricks,
+            'tricks'       => $newTricks,
             'levelOptions' => LevelEnum::options(),
             'judgeOptions' => Judge::all(),
+            'judgeID'      => $judgeID,
         ]);
     }
 
@@ -49,6 +60,8 @@ class TrainingController extends Controller
      */
     public function store(Request $request)
     {
+        $judgeID = is_null($request->judgeID) ? null : $request->judgeID;
+
         $user = Auth::user();
         $trick = Trick::with('judge')->findOrFail($request->trick_id);
 
@@ -71,8 +84,9 @@ class TrainingController extends Controller
         $result = Attempt::with('trick','judge')->findOrFail($attempt->id);
 
         return Inertia::render('training/Result',[
-            'result' => $result,
-            'trick'  => $trick,
+            'result'  => $result,
+            'trick'   => $trick,
+            'judgeID' => $judgeID,
         ]);
     }
 }

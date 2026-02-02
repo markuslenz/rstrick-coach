@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3'
+import { Head, useForm, usePage } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -10,11 +10,14 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { show, store } from '@/routes/trainings'
 
+const page = usePage()
+
 const props = defineProps({ 
     trick: Object,
     tricks: Array,
     levelOptions: Array,
     judgeOptions: Array,
+    judgeID: Number,
 })
 
 
@@ -30,6 +33,7 @@ const form = useForm({
     level: '',
     judge_id: '',
     trick_name: '',
+    judgeID: props.judgeID,
 
 })
 
@@ -56,6 +60,7 @@ const handleSubmit = () => {
             </div>
             <h1 class="mb-4 mt-4 text-2xl font-bold text-heading">Answer the following questions:</h1>
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
+                <Input id="judgeID" type="hidden" name="judgeID" v-model="form.judgeID"/>
                 <div class="space-y-2">
                     <Label for="judge_id">Which Judge eavluates this trick?</Label>
                     <Select v-model="form.judge_id" name="judge_id" id="judge_id">

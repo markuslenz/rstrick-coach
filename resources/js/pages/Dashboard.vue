@@ -30,7 +30,7 @@ defineProps({
         <div
             class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
         >
-                <div class="px-4 py-4 text-2xl font-extrabold">Hello, {{ user.name }}</div>
+                <div class="px-4 py-4 text-2xl font-extrabold">Hi {{ user.name }}</div>
                 <div class="pl-4 pb-5 text-xl">Here are your training statistics</div>
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
                 <div

@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { index, create, store } from '@/routes/tricks';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
+import { Head, useForm } from '@inertiajs/vue3'
+import AppLayout from '@/layouts/AppLayout.vue'
+import { type BreadcrumbItem } from '@/types'
+import { index, create, store } from '@/routes/tricks'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import InputError from '@/components/InputError.vue'
+import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -18,7 +19,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
         title: 'Create Trick',
         href: create().url,
     },
-];
+]
 
 const form = useForm({
     name: '',
@@ -26,7 +27,7 @@ const form = useForm({
     url: '',
     judge_id: '',
     description: '',
-});
+})
 
 const handleSubmit = () => {
     form.post(store().url)
@@ -54,7 +55,7 @@ defineProps({
                 </div>
                 <div class="space-y-2">
                     <Label for="url">Video URL</Label>
-                    <Input id="url" type="text" name="url" required autofocus autocomplete="trick-url"
+                    <Input id="url" type="text" name="url" required autocomplete="trick-url"
                         v-model="form.url" />
                     <InputError :message="form.errors.url" />
                 </div>
@@ -88,8 +89,7 @@ defineProps({
                 </div>
                 <div class="space-y-2">
                     <Label for="description">Description</Label>
-                    <Input id="description" type="text" name="description" required autofocus
-                        autocomplete="trick-description" v-model="form.description" />
+                    <Textarea id="description" type="text" name="description" v-model="form.description" placeholder="Enter a description here" />
                     <InputError :message="form.errors.description" />
                 </div>
                 <Button type="submit" :disabled="form.processing">Add Trick</Button>

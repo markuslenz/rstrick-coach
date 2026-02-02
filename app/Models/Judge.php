@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Judge extends Model
 {
+    protected static function booted()
+    {
+        static::deleting(function($judge) {
+            $judge->tricks()->delete();
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *

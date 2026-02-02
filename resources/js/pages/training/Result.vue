@@ -17,6 +17,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
 const props = defineProps({ 
     result: Object,
     trick: Object,
+    judgeID: Number,
 })
 
 </script>
@@ -66,7 +67,7 @@ const props = defineProps({
             </div>
             <div class="container py-2 px-2 mx-0 min-w-full flex flex-col items-center">
                 <Button class="inline-flex items-center justify-center w-8/12 font-bold" size="lg">
-                    <Link :href="show().url">Next Trick</Link>
+                    <Link :href="show(judgeID).url">Next Trick</Link>
                 </Button>
             </div>
         </div>

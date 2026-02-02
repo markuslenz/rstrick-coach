@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { index, create, store } from '@/routes/judges';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
+import { Head, useForm } from '@inertiajs/vue3'
+import AppLayout from '@/layouts/AppLayout.vue'
+import { type BreadcrumbItem } from '@/types'
+import { index, create, store } from '@/routes/judges'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import InputError from '@/components/InputError.vue'
+import { Button } from '@/components/ui/button'
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -17,11 +17,11 @@ const breadcrumbItems: BreadcrumbItem[] = [
         title: 'Create Judge Type',
         href: create().url,
     },
-];
+]
 
 const form = useForm({
     name: '',
-});
+})
 
 const handleSubmit = () => {
     form.post(store().url)

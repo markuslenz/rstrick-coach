@@ -15,10 +15,6 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-/*Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard'); */
-
 Route::middleware(['auth', 'verified'])->group(function() {
     // Dashboard Route
     Route::get('dashboard',[DashboardController::class, 'index'])->name('dashboard');
@@ -29,6 +25,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/judges/{judge}/edit', [JudgeController::class, 'edit'])->name('judges.edit');
     Route::patch('/judges/{judge}', [JudgeController::class, 'update'])->name('judges.update');
     Route::delete('/judges/{judge}',[JudgeController::class, 'destroy'])->name('judges.destroy');
+    // Training Routes
+    Route::get('/trainings',[TrainingController::class, 'index'])->name('trainings.index');
+    Route::get('/trainings/view/{judge?}',[TrainingController::class, 'show'])->name('trainings.show');
+    Route::post('/trainings',[TrainingController::class,'store'])->name('trainings.store');
     // Trick Routes
     Route::get('/tricks',[TrickController::class, 'index'])->name('tricks.index');
     Route::get('/tricks/create',[TrickController::class, 'create'])->name('tricks.create');
@@ -37,9 +37,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::patch('/tricks/{trick}', [TrickController::class, 'update'])->name('tricks.update');
     Route::delete('/tricks/{trick}', [TrickController::class, 'destroy'])->name('tricks.destroy');
     Route::get('/tricks/{trick}/view',[TrickController::class, 'show'])->name('tricks.show');
-    // Training Routes
-    Route::get('/trainings/view',[TrainingController::class, 'show'])->name('trainings.show');
-    Route::post('/trainings',[TrainingController::class,'store'])->name('trainings.store');
     // User Administration routes
     Route::get('/users',[UsersController::class, 'index'])->name('users.index');
     Route::get('/users/{user}/edit',[UsersController::class, 'edit'])->name('users.edit');

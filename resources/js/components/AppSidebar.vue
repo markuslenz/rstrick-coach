@@ -43,7 +43,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Trainings',
-        href: trainings.show(),
+        href: trainings.index(),
         icon: Trophy
     }
 ];

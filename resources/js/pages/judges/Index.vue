@@ -128,9 +128,11 @@ const props = defineProps<Props>()
                                         </DialogContent>
                                     </Dialog>
                                 </div>
-                                <div class="flex gap-2" v-else>
-                                    <Eye class="h-4 w-4" />
-                                    <Link :href="show(judge.id).url">View</Link>
+                                <div v-else>
+                                    <Link :href="show(judge.id).url"  class="inline-icon-text">
+                                        <Eye class="h-4 w-4" />
+                                        View
+                                    </Link>
                                 </div>
                             </TableCell>
                         </TableRow>
@@ -140,3 +142,11 @@ const props = defineProps<Props>()
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.inline-icon-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+</style>

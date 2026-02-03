@@ -39,19 +39,17 @@ const props = defineProps<Props>()
             <div class="px-4 py-4 text-2xl font-extrabold">Hi {{ user.name }}</div>
             <div class="pl-4 pb-5 text-xl">Which kind of training do you want to start today?</div>
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div class="relative aspect-video overflow-hidden rounded-xl border-3 border-sidebar-border/70 dark:border-sidebar-border bg-gray-100 text-gray-700">
-                    <div class="text-2xl font-extrabold text-center py-4">All Difficulties</div>
-                    <div class="text-6xl font-extrabold text-center py-4">
-                        <Link :href="show()">GO</Link>
+                <div class="relative aspect-video overflow-hidden rounded-xl border-3 border-sidebar-border/70 dark:border-sidebar-border bg-gray-100 text-gray-700 pt-10">
+                    <div class="text-2xl font-extrabold text-center align-baseline">
+                        <Link :href="show()">All Difficulties</Link>
                     </div>
                 </div>
                 <div 
                     v-for="judge in props.judges"
-                    class="relative aspect-video overflow-hidden rounded-xl border-3 border-sidebar-border/70 dark:border-sidebar-border bg-gray-100 text-gray-700"
+                    class="relative aspect-video overflow-hidden rounded-xl border-3 border-sidebar-border/70 dark:border-sidebar-border bg-gray-100 text-gray-700 pt-10"
                 >
-                    <div class="text-2xl font-extrabold text-center py-4">{{ judge.name }}</div>
-                    <div class="text-6xl font-extrabold text-center py-4">
-                        <Link :href="show(judge.id)">GO</Link>
+                    <div class="text-2xl font-extrabold text-center py-4">
+                        <Link :href="show(judge.id)">{{ judge.name }}</Link>
                     </div>
                 </div>
             </div>

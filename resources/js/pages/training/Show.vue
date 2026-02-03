@@ -88,11 +88,9 @@ const handleSubmit = () => {
                 </div>
                 <div class="space-y-2">
                     <Label for="trick_name">What's the trick called?</Label>
-                    <!--<Input id="trick_name" type="text" name="trick_name" required autocomplete="trick-name"
-                        v-model="form.trick_name" /> -->
                     <RadioGroup v-model="form.trick_name" id="trick_name" name="trick_name">
-                        <div class="flex items-center space-x-2" v-for="line in tricks">
-                            <RadioGroupItem :id="line.id" :value="line.name" />
+                        <div class="flex items-center space-x-2" v-for="line in tricks" :key="line.id">
+                            <RadioGroupItem :id="line.id" :value="line.name"/>
                             <Label :for="line.id">{{ line.name }}</Label>
                         </div>
                     </RadioGroup>

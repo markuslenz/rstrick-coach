@@ -22,7 +22,7 @@ interface Trick {
     youtube: string,
     judge_id: number,
     description: string,
-    video: null as File | null,
+    video: File | null,
 }
 
 const props = defineProps<{

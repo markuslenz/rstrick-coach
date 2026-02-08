@@ -30,15 +30,18 @@ const breadcrumbItems: BreadcrumbItem[] = [
         <div class="px-4 py-4">
             <h1 class="mb-4 text-2xl font-bold text-heading">Trick: {{ props.trick.name }}</h1>
 
-            <div class="youtube-container">
+            <div class="youtube-container" v-if="props.trick.youtube">
                 <iframe
-                    :src="props.trick.url + '?autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1'"
+                    :src="props.trick.youtube + '?autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1'"
                     title="YouTube video player" 
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 >
                 </iframe>
+            </div>
+            <div v-if="props.trick.video_url">
+                <video controls width="100%" :src="'/storage/' + props.trick.video_url"></video>
             </div>
             <div>Difficulty Level: {{ props.trick.level }}</div>
             <div>Difficulty Judge: {{ props.judge.name }}</div>

@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { index, create, edit, destroy, show } from '@/routes/tricks'
-import { Rocket, MoreHorizontal, Eye, SquarePen, Trash } from 'lucide-vue-next'
+import { AlertCircleIcon, MoreHorizontal, Eye, SquarePen, Trash } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
@@ -65,7 +65,7 @@ const props = defineProps<Props>()
 
         <div class="px-4 py-4">
             <Alert v-if="page.props.flash?.message" class="bg-blue-200 mb-3">
-                <Rocket class="h-4 w-4" />
+                <AlertCircleIcon class="h-4 w-4" />
                 <AlertTitle>Notification!</AlertTitle>
                 <AlertDescription>
                     {{ page.props.flash.message }}

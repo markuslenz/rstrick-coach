@@ -11,16 +11,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Rocket } from 'lucide-vue-next'
 import { Textarea } from '@/components/ui/textarea'
+import { AlertCircleIcon } from 'lucide-vue-next'
 
 const page = usePage();
 
-interface Trick{
+interface Trick {
     id: number,
     name: string,
     level: string,
-    url: string,
+    youtube: string,
     judge_id: number,
     description: string,
+    video: null as File | null,
 }
 
 const props = defineProps<{
@@ -43,13 +45,15 @@ const breadcrumbItems: BreadcrumbItem[] = [
 const form = useForm({
     name: props.trick.name,
     level: props.trick.level,
-    url: props.trick.url,
+    youtube: props.trick.youtube,
     judge_id: props.trick.judge_id,
     description: props.trick.description,
 });
 
 const handleSubmit = () => {
-    form.patch(update(props.trick).url)
+    form.patch(update(props.trick).url, {
+        forceFormData: true,
+    })
 }
 
 </script>
@@ -74,12 +78,6 @@ const handleSubmit = () => {
                     <Input id="name" type="text" name="name" required autofocus autocomplete="trick-name"
                         v-model="form.name" />
                     <InputError :message="form.errors.name" />
-                </div>
-                <div class="space-y-2">
-                    <Label for="url">Video URL</Label>
-                    <Input id="url" type="text" name="url" required autofocus autocomplete="trick-url"
-                        v-model="form.url" />
-                    <InputError :message="form.errors.url" />
                 </div>
                 <div class="space-y-2">
                     <Label for="judge_id">Judge Type</Label>
@@ -108,6 +106,26 @@ const handleSubmit = () => {
                         </SelectContent>
                     </Select>
                     <InputError :message="form.errors.level" />
+                </div>
+                <div class="space-y-2">
+                    <Alert>
+                        <AlertCircleIcon />
+                        <AlertTitle>Notification</AlertTitle>
+                        <AlertDescription>
+                            <p>Please reference either a Youtube Video or upload a video.</p>
+                        </AlertDescription>
+                    </Alert>
+                </div>
+                <div class="space-y-2">
+                    <Label for="youtube">Youtube URL</Label>
+                    <Input id="youtube" type="text" name="youtube" required autocomplete="trick-youtube"
+                        v-model="form.youtube" />
+                    <InputError :message="form.errors.youtube" />
+                </div>
+                <div class="space-y-2">
+                    <Label for="video">Neues Video (optional)</Label>
+                    <Input id="video" type="file" accept="video/*" @change="form.video = $event.target.files[0]" />
+                    <InputError :message="form.errors.video" />
                 </div>
                 <div class="space-y-2">
                     <Label for="description">Description</Label>

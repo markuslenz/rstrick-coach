@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Trick extends Model
 {
@@ -12,6 +13,9 @@ class Trick extends Model
     {
         static::deleting(function ($trick) {
             $trick->attempts()->delete();
+            if($trick->video_url && Storage::disk('public')->exists($trick->video_url)) {
+                Storage::disk('public')->delete($trick->video_url);
+            }
         });
     }
 
@@ -22,7 +26,8 @@ class Trick extends Model
      */
     protected $fillable = [
         'name',
-        'url',
+        'youtube',
+        'video_url',
         'level',
         'judge_id',
         'description'

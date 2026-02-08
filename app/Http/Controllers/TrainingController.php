@@ -71,6 +71,7 @@ class TrainingController extends Controller
         $attempt->trick_name = $request->trick_name;
         $attempt->judge_id   = $request->judge_id;
         $attempt->level      = $request->level;
+        $attempt->trick_id   = $request->trick_id;
         
         if($trick->level === $request->level && $trick->judge_id === $request->judge_id)
         {

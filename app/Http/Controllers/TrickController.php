@@ -7,6 +7,8 @@ use App\Models\Judge;
 use App\Enums\LevelEnum;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class TrickController extends Controller
 {
@@ -38,16 +40,31 @@ class TrickController extends Controller
         // If validation passes, the data is automatically validated
         $validatedData = $request->validate([
             'name'        => 'required|string|max:120|unique:tricks',
-            'url'         => 'required|url:https',
+            'youtube'     => 'nullable|required_without:video|url:https',
+            'video'       => 'nullable|required_without:youtube|file|mimes:mp4,webm,ogg|max:51200',
             'level'       => 'required',
             'judge_id'    => 'required',
             'description' => 'nullable'
         ]);
 
-        // Create new trick using validated data
-        Trick::create($validatedData);
+        // Handle uploaded Video
+        $file = $request->file('video');
+        $randomName = Str::random(12) . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('videos', $randomName, 'public');
 
-        return redirect()->route('tricks.index')->with('message', 'Trick created successfully!');
+        // Create new trick using validated data
+        Trick::create([
+            'name'        => $request->name,
+            'youtube'     => $request->youtube,
+            'video_url'   => $path,
+            'level'       => $request->level,
+            'judge_id'    => $request->judge_id,
+            'description' => $request->description
+
+        ]);
+
+        session()->flash('message', 'Trick created successfully!');
+        return Inertia::location(route('tricks.index'));
     }
 
     /**
@@ -81,15 +98,36 @@ class TrickController extends Controller
         // If validation passes, the data is automatically validated
         $validatedData = $request->validate([
             'name'        => 'required|string|max:120',
-            'url'         => 'required|url:https',
+            'youtube'     => 'nullable|url:https',
+            'video'       => 'nullable|file|mimes:mp4,webm,ogg|max:51200',
             'level'       => 'required',
             'judge_id'    => 'required',
             'description' => 'nullable'
         ]);
-        
-        $trick->update($validatedData);
 
-        return redirect()->route('tricks.edit', $trick->id)->with('message', 'Trick updated successfully!');
+        // Handle uploaded Video
+        if ($request->hasFile('video')) {
+            $file = $request->file('video');
+            $randomName = Str::random(12) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('videos', $randomName, 'public');
+            // Delete old video
+            $old_video = $trick->video_url;
+            Storage::disk('public')->delete($old_video);
+        } else {
+            $path = $trick->video_url;
+        }
+        
+        $trick->update([
+            'name'        => $request->name,
+            'youtube'     => $request->youtube,
+            'video_url'   => $path,
+            'level'       => $request->level,
+            'judge_id'    => $request->judge_id,
+            'description' => $request->description
+        ]);
+
+        session()->flash('message', 'Trick created successfully!');
+        return Inertia::location(route('tricks.edit',['trick' => $trick->id]));
     }
 
     /**

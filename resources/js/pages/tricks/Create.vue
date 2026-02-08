@@ -9,6 +9,8 @@ import InputError from '@/components/InputError.vue'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { AlertCircleIcon } from 'lucide-vue-next'
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -24,13 +26,16 @@ const breadcrumbItems: BreadcrumbItem[] = [
 const form = useForm({
     name: '',
     level: '',
-    url: '',
+    youtube: '',
+    video: '',
     judge_id: '',
     description: '',
 })
 
 const handleSubmit = () => {
-    form.post(store().url)
+    form.post(store().url,{
+        forceFormData: true,
+    })
 }
 
 defineProps({
@@ -52,12 +57,6 @@ defineProps({
                     <Input id="name" type="text" name="name" required autofocus autocomplete="trick-name"
                         v-model="form.name" />
                     <InputError :message="form.errors.name" />
-                </div>
-                <div class="space-y-2">
-                    <Label for="url">Video URL</Label>
-                    <Input id="url" type="text" name="url" required autocomplete="trick-url"
-                        v-model="form.url" />
-                    <InputError :message="form.errors.url" />
                 </div>
                 <div class="space-y-2">
                     <Label for="judge_id">Judge Type</Label>
@@ -86,6 +85,26 @@ defineProps({
                         </SelectContent>
                     </Select>
                     <InputError :message="form.errors.level" />
+                </div>
+                <div class="space-y-2">
+                    <Alert>
+                        <AlertCircleIcon />
+                        <AlertTitle>Notification</AlertTitle>
+                        <AlertDescription>
+                            <p>Please reference either a Youtube Video or upload a video.</p>
+                        </AlertDescription>
+                    </Alert>
+                </div>
+                <div class="space-y-2">
+                    <Label for="youtube">Youtube URL</Label>
+                    <Input id="youtube" type="text" name="youtube" autocomplete="trick-youtube"
+                        v-model="form.youtube" />
+                    <InputError :message="form.errors.youtube" />
+                </div>
+                <div class="space-y-2">
+                    <Label for="video">Video</Label>
+                    <Input id="video" type="file" accept="video/*" name="video" v-model="form.video" @change="form.video = $event.target.files[0]" />
+                    <InputError :message="form.errors.video" />
                 </div>
                 <div class="space-y-2">
                     <Label for="description">Description</Label>

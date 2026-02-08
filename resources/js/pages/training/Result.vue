@@ -2,7 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { Smile, Annoyed } from 'lucide-vue-next'
 import { show } from '@/routes/trainings'
@@ -67,7 +67,8 @@ const props = defineProps({
             </div>
             <div class="container py-2 px-2 mx-0 min-w-full flex flex-col items-center">
                 <Button class="inline-flex items-center justify-center w-8/12 font-bold" size="lg">
-                    <Link :href="show(judgeID).url">Next Trick</Link>
+                    <Link v-if="judgeID" :href="show(judgeID).url">Next Trick</Link>
+                    <Link v-else :href="show().url">Next Trick</Link>
                 </Button>
             </div>
         </div>

@@ -46,9 +46,9 @@ const handleSubmit = () => {
         <Head title="Training" />
 
         <div class="px-4 py-4">
-            <div class="youtube-container">
+            <div class="youtube-container" v-if="props.trick.youtube">
                 <iframe
-                    :src="props.trick.url + '?autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1'"
+                    :src="props.trick.youtube + '?autoplay=1&mute=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1'"
                     title="YouTube video player" 
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -56,9 +56,13 @@ const handleSubmit = () => {
                 >
                 </iframe>
             </div>
+            <div v-if="props.trick.video_url">
+                <video controls width="100%" :src="'/storage/' + props.trick.video_url"></video>
+            </div>
             <h1 class="mb-4 mt-4 text-2xl font-bold text-heading">Answer the following questions:</h1>
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
-                <Input id="judgeID" type="hidden" name="judgeID" v-model="form.judgeID"/>
+                <Input id="judgeID" type="hidden" name="judgeID" v-model="form.judgeID" />
+                <Input id="trick_id" type="hidden" name="trick_id" v-model="form.trick_id" />
                 <div class="space-y-2">
                     <Label for="judge_id">Which Judge eavluates this trick?</Label>
                     <Select v-model="form.judge_id" name="judge_id" id="judge_id">

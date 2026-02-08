@@ -38,7 +38,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
     },
     {
         title: 'Edit Trick',
-        href: '',
+        href: edit(props.trick.id).url,
     },
 ];
 
@@ -46,6 +46,7 @@ const form = useForm({
     name: props.trick.name,
     level: props.trick.level,
     youtube: props.trick.youtube,
+    video: '',
     judge_id: props.trick.judge_id,
     description: props.trick.description,
 });

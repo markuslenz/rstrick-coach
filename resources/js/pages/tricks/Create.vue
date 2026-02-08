@@ -103,7 +103,7 @@ defineProps({
                 </div>
                 <div class="space-y-2">
                     <Label for="video">Video</Label>
-                    <Input id="video" type="file" accept="video/*" name="video" v-model="form.video" @change="form.video = $event.target.files[0]" />
+                    <Input id="video" type="file" accept="video/*" name="video" @change="form.video = $event.target.files[0]" />
                     <InputError :message="form.errors.video" />
                 </div>
                 <div class="space-y-2">

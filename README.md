@@ -1,7 +1,8 @@
 # RS Trick Coach
 
-<p align="center">
 [![tests](https://github.com/markuslenz/rstrick-coach/actions/workflows/tests.yml/badge.svg)](https://github.com/markuslenz/rstrick-coach/actions/workflows/tests.yml)
+<p align="center">
+
 
 [![linter](https://github.com/markuslenz/rstrick-coach/actions/workflows/lint.yml/badge.svg)](https://github.com/markuslenz/rstrick-coach/actions/workflows/lint.yml)
 </p>

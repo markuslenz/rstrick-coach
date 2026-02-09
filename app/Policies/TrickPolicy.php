@@ -29,9 +29,7 @@ class TrickPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === 'admin'
-        ? Response::allow()
-        : Response::deny('You do not have authorizations to create Tricks.');
+        return $user->canEdit();
     }
 
     /**
@@ -39,7 +37,7 @@ class TrickPolicy
      */
     public function update(User $user, Trick $trick): bool
     {
-        return $user->role === 'admin';
+        return $user->canEdit();
     }
 
     /**
@@ -47,7 +45,7 @@ class TrickPolicy
      */
     public function delete(User $user, Trick $trick): bool
     {
-        return $user->role === 'admin';
+        return $user->canEdit();
     }
 
     /**
@@ -55,7 +53,7 @@ class TrickPolicy
      */
     public function restore(User $user, Trick $trick): bool
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +61,6 @@ class TrickPolicy
      */
     public function forceDelete(User $user, Trick $trick): bool
     {
-        return $user->role === 'admin';
+        return $user->canEdit();
     }
 }

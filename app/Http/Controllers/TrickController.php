@@ -9,9 +9,12 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class TrickController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -26,6 +29,7 @@ class TrickController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Trick::class);
         return Inertia::render('tricks/Create', [
             'levelOptions' => LevelEnum::options(),
             'judgeOptions' => Judge::all(),
@@ -37,6 +41,7 @@ class TrickController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Trick::class);
         // If validation passes, the data is automatically validated
         $validatedData = $request->validate([
             'name'        => 'required|string|max:120|unique:tricks',
@@ -83,6 +88,7 @@ class TrickController extends Controller
      */
     public function edit(Trick $trick)
     {
+        $this->authorize('update', $trick);
         return Inertia::render('tricks/Edit',[
             'trick' => $trick,
             'levelOptions' => LevelEnum::options(),
@@ -95,6 +101,7 @@ class TrickController extends Controller
      */
     public function update(Request $request, Trick $trick)
     {
+        $this->authorize('update', $trick);
         // If validation passes, the data is automatically validated
         $validatedData = $request->validate([
             'name'        => 'required|string|max:120',
@@ -126,7 +133,7 @@ class TrickController extends Controller
             'description' => $request->description
         ]);
 
-        session()->flash('message', 'Trick created successfully!');
+        session()->flash('message', 'Trick updated successfully!');
         return Inertia::location(route('tricks.edit',['trick' => $trick->id]));
     }
 
@@ -135,6 +142,7 @@ class TrickController extends Controller
      */
     public function destroy(Trick $trick)
     {
+        $this->authorize('delete', $trick);
         $trick->delete();
         return redirect()->route('tricks.index')->with('message','Trick deleted successfully!');
     }

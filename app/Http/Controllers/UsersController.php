@@ -6,14 +6,18 @@ use App\Models\User;
 use App\Enums\RoleEnum;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UsersController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $this->authorize('viewAny', User::class);
         return Inertia::render('users/Index',[
             'users' => User::all(),
         ]);
@@ -24,6 +28,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('viewAny', User::class);
         return Inertia::render('users/Edit',[
             'user' => $user,
             'roleOptions' => RoleEnum::options(),
@@ -35,6 +40,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('viewAny', User::class);
         // If validation passes, the data is automatically validated
         $validatedData = $request->validate([
             'name'  => 'required|string|max:120',
@@ -52,6 +58,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('viewAny', User::class);
         $user->delete();
         return redirect()->route('users.index')->with('message','User deleted successfully!');
     }

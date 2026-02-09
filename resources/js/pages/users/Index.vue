@@ -20,6 +20,10 @@ const breadcrumbItems: BreadcrumbItem[] = [
 
 const page = usePage()
 
+const { permission } = usePage().props
+
+console.log(usePage().props)
+
 const admin = page.props.auth.user
 
 interface User {

@@ -22,6 +22,8 @@ const page = usePage()
 
 const user = page.props.auth.user
 
+const { permission } = usePage().props
+
 interface Trick {
     id: number,
     name: string,
@@ -72,7 +74,7 @@ const props = defineProps<Props>()
                 </AlertDescription>
             </Alert>
 
-            <Button class="mb-3" v-if="user.role == 'admin'">
+            <Button class="mb-3" v-if="permission.canEdit">
                 <Link :href="create().url">New Trick</Link>
             </Button>
             <div class="rounded-md border">
@@ -93,7 +95,7 @@ const props = defineProps<Props>()
                             <TableCell class="text-center">{{ trick.level }}</TableCell>
                             <TableCell>{{ trick.judge.name }}</TableCell>
                             <TableCell class="text-center space-x-2">
-                                <div v-if="user.role == 'admin'">
+                                <div v-if="permission.canEdit">
                                     <DropdownMenu>
                                         <DropdownMenuTrigger as-child>
                                             <Button variant="ghost" class="h-8 w-8 p-0">

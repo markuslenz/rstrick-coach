@@ -6,6 +6,7 @@ enum RoleEnum: string
 {
     case ADMIN = 'admin';
     case USER  = 'user';
+    case EDIT  = 'editor';
 
     public static function options(): array
     {

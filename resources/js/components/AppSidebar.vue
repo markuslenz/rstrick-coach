@@ -25,6 +25,8 @@ const page = usePage();
 
 const user = page.props.auth.user;
 
+const { permission } = usePage().props
+
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
@@ -76,7 +78,7 @@ const footerNavItems: NavItem[] = [
         </SidebarContent>
 
         <SidebarFooter>
-            <NavFooter :items="footerNavItems"  v-if="user.role === 'admin'"/>
+            <NavFooter :items="footerNavItems"  v-if="permission.isAdmin"/>
             <NavUser />
         </SidebarFooter>
     </Sidebar>

@@ -29,9 +29,7 @@ class JudgePolicy
      */
     public function create(User $user): bool
     {
-        return $user->role === 'admin'
-        ? Response::allow()
-        : Response::deny('You do not have authorizations to create Judge Types.');
+        return $user->canEdit();
     }
 
     /**
@@ -39,7 +37,7 @@ class JudgePolicy
      */
     public function update(User $user, Judge $judge): bool
     {
-        return $user->role === 'admin';
+        return $user->canEdit();
     }
 
     /**
@@ -47,7 +45,7 @@ class JudgePolicy
      */
     public function delete(User $user, Judge $judge): bool
     {
-        return $user->role === 'admin';
+        return $user->canEdit();
     }
 
     /**
@@ -55,7 +53,7 @@ class JudgePolicy
      */
     public function restore(User $user, Judge $judge): bool
     {
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +61,6 @@ class JudgePolicy
      */
     public function forceDelete(User $user, Judge $judge): bool
     {
-        return $user->role === 'admin';
+        return $user->canEdit();
     }
 }

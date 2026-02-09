@@ -119,7 +119,7 @@ const handleSubmit = () => {
                 </div>
                 <div class="space-y-2">
                     <Label for="youtube">Youtube URL</Label>
-                    <Input id="youtube" type="text" name="youtube" required autocomplete="trick-youtube"
+                    <Input id="youtube" type="text" name="youtube" autocomplete="trick-youtube"
                         v-model="form.youtube" />
                     <InputError :message="form.errors.youtube" />
                 </div>

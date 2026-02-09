@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Judge;
 use App\Models\Trick;
 use Inertia\Inertia;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class JudgeController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -23,7 +26,7 @@ class JudgeController extends Controller
      */
     public function create()
     {
-
+        $this->authorize('create', Judge::class);
         return Inertia::render('judges/Create');
     }
 
@@ -32,6 +35,7 @@ class JudgeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Judge::class);
         $validatedData = $request->validate([
             'name' => 'required|string|max:120|unique:judges'
         ]);
@@ -57,6 +61,7 @@ class JudgeController extends Controller
      */
     public function edit(Judge $judge)
     {
+        $this->authorize('update',$judge);
         return Inertia::render('judges/Edit',compact('judge'));
     }
 
@@ -65,6 +70,7 @@ class JudgeController extends Controller
      */
     public function update(Request $request, Judge $judge)
     {
+        $this->authorize('update', $judge);
         $validatedData = $request->validate([
             'name' => 'required|string|max:120'
         ]);
@@ -77,6 +83,7 @@ class JudgeController extends Controller
      */
     public function destroy(Judge $judge)
     {
+        $this->authorize('delete',Judge::class);
         $judge->delete();
         return redirect()->route('judges.index')->with('message', 'Judge Type deleted successfully!');
     }

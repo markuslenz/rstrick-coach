@@ -21,10 +21,6 @@ import trainings from '@/routes/trainings';
 import { type NavItem } from '@/types';
 import AppLogo from './AppLogo.vue';
 
-const page = usePage();
-
-const user = page.props.auth.user;
-
 const { permission } = usePage().props
 
 const mainNavItems: NavItem[] = [

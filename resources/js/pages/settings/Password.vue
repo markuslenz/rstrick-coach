@@ -92,8 +92,8 @@ const breadcrumbItems: BreadcrumbItem[] = [
                         <Button
                             :disabled="processing"
                             data-test="update-password-button"
-                            >Save password</Button
-                        >
+                            >Save password
+                        </Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"

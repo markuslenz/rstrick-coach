@@ -1,23 +1,24 @@
 <script setup lang="ts">
-import { Head, useForm, usePage } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { index, edit, update } from '@/routes/judges';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import InputError from '@/components/InputError.vue';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Rocket } from 'lucide-vue-next';
+import { Head, useForm, usePage } from '@inertiajs/vue3'
+import AppLayout from '@/layouts/AppLayout.vue'
+import { type BreadcrumbItem } from '@/types'
+import { index, edit, update } from '@/routes/judges'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import InputError from '@/components/InputError.vue'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
+import { Rocket } from 'lucide-vue-next'
+import { Spinner } from '@/components/ui/spinner'
 
-const page = usePage();
+const page = usePage()
 
 interface Judge{
     id: number,
     name: string,
 }
 
-const props = defineProps<{judge: Judge}>();
+const props = defineProps<{judge: Judge}>()
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -28,11 +29,11 @@ const breadcrumbItems: BreadcrumbItem[] = [
         title: 'Edit Judge Type',
         href: edit(props.judge.id).url,
     }
-];
+]
 
 const form = useForm({
     name: props.judge.name,
-});
+})
 
 const handleSubmit = () => {
     form.patch(update(props.judge).url)
@@ -63,7 +64,10 @@ const handleSubmit = () => {
                     <Input id="name" type="text" name="name" required autofocus autocomplete="judge-type-name" v-model="form.name"/>
                     <InputError :message="form.errors.name" />
                 </div>
-                <Button type="submit" :disabled="form.processing">Update Judge Type</Button>
+                <Button type="submit" :disabled="form.processing">
+                    <Spinner v-if="form.processing" />
+                    Update Judge Type
+                </Button>
             </form>
         </div>
     </AppLayout>

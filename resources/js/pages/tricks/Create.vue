@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { AlertCircleIcon } from 'lucide-vue-next'
+import { Spinner } from '@/components/ui/spinner'
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -111,7 +112,10 @@ defineProps({
                     <Textarea id="description" type="text" name="description" v-model="form.description" placeholder="Enter a description here" />
                     <InputError :message="form.errors.description" />
                 </div>
-                <Button type="submit" :disabled="form.processing">Add Trick</Button>
+                <Button type="submit" :disabled="form.processing">
+                    <Spinner v-if="form.processing" />
+                    Add Trick
+                </Button>
             </form>
         </div>
     </AppLayout>

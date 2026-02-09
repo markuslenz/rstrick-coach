@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { show, store } from '@/routes/trainings'
+import { Spinner } from '@/components/ui/spinner'
 
 const props = defineProps({ 
     trick: Object,
@@ -100,7 +101,10 @@ const handleSubmit = () => {
                     </RadioGroup>
                     <InputError :message="form.errors.trick_name" />
                 </div>
-                <Button type="submit" :disabled="form.processing">Submit</Button>
+                <Button type="submit" :disabled="form.processing">
+                    <Spinner v-if="form.processing" />
+                    Submit
+                </Button>
             </form>
         </div>
     </AppLayout>

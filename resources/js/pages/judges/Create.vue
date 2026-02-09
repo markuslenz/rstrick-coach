@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import InputError from '@/components/InputError.vue'
 import { Button } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
@@ -41,7 +42,10 @@ const handleSubmit = () => {
                     <Input id="name" type="text" name="name" required autofocus autocomplete="judge-type-name" v-model="form.name"/>
                     <InputError :message="form.errors.name" />
                 </div>
-                <Button type="submit" :disabled="form.processing">Add Judge Type</Button>
+                <Button type="submit" :disabled="form.processing">
+                    <Spinner v-if="form.processing" />
+                    Add Judge Type
+                </Button>
             </form>
         </div>
     </AppLayout>

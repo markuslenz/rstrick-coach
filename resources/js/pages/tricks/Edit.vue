@@ -12,6 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Rocket } from 'lucide-vue-next'
 import { Textarea } from '@/components/ui/textarea'
 import { AlertCircleIcon } from 'lucide-vue-next'
+import { Spinner } from '@/components/ui/spinner'
 
 const page = usePage();
 
@@ -133,7 +134,10 @@ const handleSubmit = () => {
                     <Textarea id="description" type="text" name="description" v-model="form.description" />
                     <InputError :message="form.errors.description" />
                 </div>
-                <Button type="submit" :disabled="form.processing">Update Trick</Button>
+                <Button type="submit" :disabled="form.processing">
+                    <Spinner v-if="form.processing" />
+                    Update Trick
+                </Button>
             </form>
         </div>
     </AppLayout>

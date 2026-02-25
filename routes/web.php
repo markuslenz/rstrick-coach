@@ -8,12 +8,26 @@ use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
+
+Route::post('/locale', function(Request $request) {
+
+    $locale = $request->locale;
+
+    session(['locale' => $locale]);
+
+    if(auth()->check()) {
+        auth()->user()->update(['locale' => $locale]);
+    }
+
+    return back();
+});
 
 Route::middleware(['auth', 'verified'])->group(function() {
     // Dashboard Route

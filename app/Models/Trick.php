@@ -48,4 +48,22 @@ class Trick extends Model
     {
         return $this->hasMany(Attempt::class);
     }
+
+    /**
+     * Get translation relation
+     */
+    public function translations(): HasMany
+    {
+        return $this->hasMany(TrickTranslation::class);
+    }
+
+    /**
+     * Get translation in selected locale
+     */
+    public function translation($locale = null)
+    {
+        $locale ??= app()->getLocale();
+
+        return $this->translations->where('locale', $locale)->first();
+    }
 }

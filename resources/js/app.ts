@@ -1,9 +1,10 @@
 import '../css/app.css';
 
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp, usePage } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
-import { createApp, h } from 'vue';
+import { createApp, h, watch } from 'vue';
+import createI18n from './i18n';
 
 import { initializeTheme } from './composables/useAppearance';
 
@@ -17,9 +18,28 @@ createInertiaApp({
             import.meta.glob<DefineComponent>('./pages/**/*.vue'),
         ),
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
+        // i18n Instanz speichern
+        const i18n = createI18n(props.initialPage)
+
+        const vueApp = createApp({
+            render: () => h(App, props),
+        })
+
+        vueApp
             .use(plugin)
-            .mount(el);
+            .use(i18n)
+            .mount(el)
+        
+        const page = usePage()
+
+        watch(
+            () => page.props.locale,
+            (newLocale) => {
+                if (newLocale) {
+                    i18n.global.locale.value = newLocale
+                }
+            }
+        )
     },
     progress: {
         color: '#4B5563',

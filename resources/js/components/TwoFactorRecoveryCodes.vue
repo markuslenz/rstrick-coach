@@ -14,6 +14,9 @@ import {
 } from '@/components/ui/card';
 import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
 import { regenerateRecoveryCodes } from '@/routes/two-factor';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const { recoveryCodesList, fetchRecoveryCodes, errors } = useTwoFactorAuth();
 const isRecoveryCodesVisible = ref<boolean>(false);
@@ -43,11 +46,10 @@ onMounted(async () => {
     <Card class="w-full">
         <CardHeader>
             <CardTitle class="flex gap-3">
-                <LockKeyhole class="size-4" />2FA Recovery Codes
+                <LockKeyhole class="size-4" />{{ t('ui.two_factor_recovery.card_title') }}
             </CardTitle>
             <CardDescription>
-                Recovery codes let you regain access if you lose your 2FA
-                device. Store them in a secure password manager.
+                {{ t('ui.two_factor_recovery.card_descr') }}
             </CardDescription>
         </CardHeader>
         <CardContent>
@@ -59,8 +61,8 @@ onMounted(async () => {
                         :is="isRecoveryCodesVisible ? EyeOff : Eye"
                         class="size-4"
                     />
-                    {{ isRecoveryCodesVisible ? 'Hide' : 'View' }} Recovery
-                    Codes
+                    {{ isRecoveryCodesVisible ? 'Hide' : 'View' }} 
+                    {{ t('buttons.recovery_codes') }}
                 </Button>
 
                 <Form
@@ -76,7 +78,7 @@ onMounted(async () => {
                         type="submit"
                         :disabled="processing"
                     >
-                        <RefreshCw /> Regenerate Codes
+                        <RefreshCw /> {{ t('buttons.regenerate_codes') }}
                     </Button>
                 </Form>
             </div>
@@ -111,12 +113,7 @@ onMounted(async () => {
                             {{ code }}
                         </div>
                     </div>
-                    <p class="text-xs text-muted-foreground select-none">
-                        Each recovery code can be used once to access your
-                        account and will be removed after use. If you need more,
-                        click
-                        <span class="font-bold">Regenerate Codes</span> above.
-                    </p>
+                    <p class="text-xs text-muted-foreground select-none" v-html="t('ui.recovery_codestwo_factor_recovery.hint')"></p>
                 </div>
             </div>
         </CardContent>

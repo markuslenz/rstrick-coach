@@ -10,10 +10,13 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Users',
+        title: t('ui.users.title'),
         href: index().url,
     },
 ]
@@ -59,12 +62,12 @@ const props = defineProps<Props>()
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
 
-        <Head title="Users" />
+        <Head :title="t('ui.users.title')" />
 
         <div class="px-4 py-4">
             <Alert v-if="page.props.flash?.message" class="bg-blue-200 mb-3">
                 <AlertCircleIcon class="h-4 w-4" />
-                <AlertTitle>Notification!</AlertTitle>
+                <AlertTitle>{{ t('ui.alert.title' )}}</AlertTitle>
                 <AlertDescription>
                     {{ page.props.flash.message }}
                 </AlertDescription>
@@ -73,10 +76,10 @@ const props = defineProps<Props>()
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead class="text-center">ID</TableHead>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Email</TableHead>
-                            <TableHead>Role</TableHead>
+                            <TableHead class="text-center">{{ t('forms.id') }}</TableHead>
+                            <TableHead>{{ t('forms.name') }}</TableHead>
+                            <TableHead>{{ t('forms.email') }}</TableHead>
+                            <TableHead>{{ t('forms.role') }}</TableHead>
                             <TableHead class="text-center"></TableHead>
                         </TableRow>
                     </TableHeader>
@@ -91,36 +94,36 @@ const props = defineProps<Props>()
                                     <DropdownMenu>
                                         <DropdownMenuTrigger as-child>
                                             <Button variant="ghost" class="h-8 w-8 p-0">
-                                                <span class="sr-only">Open menu</span>
+                                                <span class="sr-only">{{ t('buttons.open_menu') }}</span>
                                                 <MoreHorizontal class="h-4 w-4" />
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
-                                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                            <DropdownMenuLabel>{{ t('buttons.actions') }}</DropdownMenuLabel>
                                             <DropdownMenuItem class="flex gap-2">
                                                 <SquarePen class="h-4 w-4"/>
-                                                <Link :href="edit(user.id).url">Edit</Link>
+                                                <Link :href="edit(user.id).url">{{ t('buttons.edit') }}</Link>
                                             </DropdownMenuItem>
                                             <DropdownMenuItem @select.prevent="confirmDelete(user.id, user.name)" class="flex gap-2 text-red-600">
                                                 <Trash class="h-4 w-4"/>
-                                                <span>Delete</span>
+                                                <span>{{ t('buttons.delete') }}</span>
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
                                     <Dialog v-model:open="openDialog">
                                         <DialogContent>
                                             <DialogHeader>
-                                                <DialogTitle>Delete User</DialogTitle>
+                                                <DialogTitle>{{ t('ui.users.dialog.title') }}</DialogTitle>
                                                 <DialogDescription>
-                                                    Are you sure you want to delete the User <b>{{ selectedRowName }}</b>?
+                                                    {{ t('ui.users.dialog.description') }} <b>{{ selectedRowName }}</b>?
                                                 </DialogDescription>
                                             </DialogHeader>
                                             <DialogFooter>
                                                 <DialogClose as-child>
-                                                    <Button variant="outline">Cancel</Button>
+                                                    <Button variant="outline">{{ t('buttons.cancel') }}</Button>
                                                 </DialogClose>
                                                 <Button class="bg-red-600"
-                                                    @click="deleteRow">Delete</Button>
+                                                    @click="deleteRow">{{ t('buttons.delete') }}</Button>
                                             </DialogFooter>
                                         </DialogContent>
                                     </Dialog>

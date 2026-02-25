@@ -39,6 +39,9 @@ import { getInitials } from '@/composables/useInitials';
 import { toUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem, NavItem } from '@/types';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 interface Props {
     breadcrumbs?: BreadcrumbItem[];
@@ -98,8 +101,7 @@ const rightNavItems: NavItem[] = [
                         </SheetTrigger>
                         <SheetContent side="left" class="w-[300px] p-6">
                             <SheetTitle class="sr-only"
-                                >Navigation Menu</SheetTitle
-                            >
+                                >{{ t('ui.app_header.nav_menu')}}</SheetTitle>
                             <SheetHeader class="flex justify-start text-left">
                                 <AppLogoIcon
                                     class="size-6 fill-current text-black dark:text-white"

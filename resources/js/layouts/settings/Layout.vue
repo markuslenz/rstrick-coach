@@ -11,22 +11,25 @@ import { edit as editProfile } from '@/routes/profile';
 import { show } from '@/routes/two-factor';
 import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Profile',
+        title: t('ui.settings.nav.profile'),
         href: editProfile(),
     },
     {
-        title: 'Password',
+        title: t('ui.settings.nav.password'),
         href: editPassword(),
     },
     {
-        title: 'Two-Factor Auth',
+        title: t('ui.settings.nav.2fa'),
         href: show(),
     },
     {
-        title: 'Appearance',
+        title: t('ui.settings.nav.appearance'),
         href: editAppearance(),
     },
 ];
@@ -37,15 +40,15 @@ const { urlIsActive } = useActiveUrl();
 <template>
     <div class="px-4 py-6">
         <Heading
-            title="Settings"
-            description="Manage your profile and account settings"
+            :title="t('ui.settings.title')"
+            :description="t('ui.settings.description')"
         />
 
         <div class="flex flex-col lg:flex-row lg:space-x-12">
             <aside class="w-full max-w-xl lg:w-48">
                 <nav
                     class="flex flex-col space-y-1 space-x-0"
-                    aria-label="Settings"
+                    :aria-label="t('ui.settings.title')"
                 >
                     <Button
                         v-for="item in sidebarNavItems"

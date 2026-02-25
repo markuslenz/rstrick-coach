@@ -10,6 +10,9 @@ import {
 } from '@/components/ui/sidebar';
 import { useActiveUrl } from '@/composables/useActiveUrl';
 import { type NavItem } from '@/types';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 defineProps<{
     items: NavItem[];
@@ -20,7 +23,7 @@ const { urlIsActive } = useActiveUrl();
 
 <template>
     <SidebarGroup class="px-2 py-0">
-        <SidebarGroupLabel>User Menu</SidebarGroupLabel>
+        <SidebarGroupLabel>{{ t('ui.nav_main') }}</SidebarGroupLabel>
         <SidebarMenu>
             <SidebarMenuItem v-for="item in items" :key="item.title">
                 <SidebarMenuButton

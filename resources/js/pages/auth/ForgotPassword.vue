@@ -10,6 +10,9 @@ import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 import { email } from '@/routes/password';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 defineProps<{
     status?: string;
@@ -18,10 +21,10 @@ defineProps<{
 
 <template>
     <AuthLayout
-        title="Forgot password"
-        description="Enter your email to receive a password reset link"
+        :title="t('ui.forgot_password.title')"
+        :description="t('ui.forgot_password.description')"
     >
-        <Head title="Forgot password" />
+        <Head :title="t('ui.forgot_password.page_title')" />
 
         <div
             v-if="status"
@@ -33,7 +36,7 @@ defineProps<{
         <div class="space-y-6">
             <Form v-bind="email.form()" v-slot="{ errors, processing }">
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="email">{{ t('forms.email') }}</Label>
                     <Input
                         id="email"
                         type="email"
@@ -52,14 +55,14 @@ defineProps<{
                         data-test="email-password-reset-link-button"
                     >
                         <Spinner v-if="processing" />
-                        Email password reset link
+                        {{ t('buttons.reset_link') }}
                     </Button>
                 </div>
             </Form>
 
             <div class="space-x-1 text-center text-sm text-muted-foreground">
-                <span>Or, return to</span>
-                <TextLink :href="login()">log in</TextLink>
+                <span>{{ t('ui.forgot_password.text') }}</span>
+                <TextLink :href="login()">{{ t('buttons.login') }}</TextLink>
             </div>
         </div>
     </AuthLayout>

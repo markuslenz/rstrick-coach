@@ -1,27 +1,24 @@
 <script setup lang="ts">
-import { Link, router } from '@inertiajs/vue3';
-import { LogOut, Settings } from 'lucide-vue-next';
+import { Link, router } from '@inertiajs/vue3'
+import { LogOut, Settings } from 'lucide-vue-next'
+import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
+import UserInfo from '@/components/UserInfo.vue'
+import { logout } from '@/routes'
+import { edit } from '@/routes/profile'
+import type { User } from '@/types'
+import { useI18n } from 'vue-i18n'
 
-import {
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu';
-import UserInfo from '@/components/UserInfo.vue';
-import { logout } from '@/routes';
-import { edit } from '@/routes/profile';
-import type { User } from '@/types';
+const { t } = useI18n()
 
 interface Props {
     user: User;
 }
 
 const handleLogout = () => {
-    router.flushAll();
+    router.flushAll()
 };
 
-defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>
@@ -35,7 +32,7 @@ defineProps<Props>();
         <DropdownMenuItem :as-child="true">
             <Link class="block w-full cursor-pointer" :href="edit()" prefetch>
                 <Settings class="mr-2 h-4 w-4" />
-                Settings
+                {{ t('ui.user_menu_content.settings') }}
             </Link>
         </DropdownMenuItem>
     </DropdownMenuGroup>
@@ -49,7 +46,7 @@ defineProps<Props>();
             data-test="logout-button"
         >
             <LogOut class="mr-2 h-4 w-4" />
-            Log out
+            {{ t('buttons.logout') }}
         </Link>
     </DropdownMenuItem>
 </template>

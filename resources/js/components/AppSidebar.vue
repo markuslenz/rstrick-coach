@@ -20,27 +20,30 @@ import users from '@/routes/users';
 import trainings from '@/routes/trainings';
 import { type NavItem } from '@/types';
 import AppLogo from './AppLogo.vue';
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const { permission } = usePage().props
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: t('ui.dashboard.title'),
         href: dashboard(),
         icon: LayoutGrid,
     },
     {
-        title: 'Tricks',
+        title: t('ui.tricks.title'),
         href: tricks.index(),
         icon: Activity
     },
     {
-        title: 'Judge Types',
+        title: t('ui.judges.title'),
         href: judges.index(),
         icon: GraduationCap 
     },
     {
-        title: 'Trainings',
+        title: t('ui.trainings.title'),
         href: trainings.index(),
         icon: Trophy
     }
@@ -48,7 +51,7 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'User Administration',
+        title: t('ui.users.title'),
         href: users.index(),
         icon: Users,
     }

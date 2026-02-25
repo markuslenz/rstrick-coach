@@ -9,7 +9,10 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { useActiveUrl } from '@/composables/useActiveUrl';
+import { useActiveUrl } from '@/composables/useActiveUrl'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 interface Props {
     items: NavItem[];
@@ -23,7 +26,7 @@ const { urlIsActive } = useActiveUrl();
 
 <template>
     <SidebarGroup class="px-2 py-0">
-        <SidebarGroupLabel>Admin Menu</SidebarGroupLabel>
+        <SidebarGroupLabel>{{ t('ui.nav_footer') }}</SidebarGroupLabel>
         <SidebarMenu>
             <SidebarMenuItem v-for="item in items" :key="item.title">
                 <SidebarMenuButton as-child :is-active="urlIsActive(item.href)" :tooltip="item.title">

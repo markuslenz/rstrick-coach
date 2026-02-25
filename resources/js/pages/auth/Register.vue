@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3';
+import { Form, Head } from '@inertiajs/vue3'
 
-import InputError from '@/components/InputError.vue';
-import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import AuthBase from '@/layouts/AuthLayout.vue';
-import { login } from '@/routes';
-import { store } from '@/routes/register';
+import InputError from '@/components/InputError.vue'
+import TextLink from '@/components/TextLink.vue'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Spinner } from '@/components/ui/spinner'
+import AuthBase from '@/layouts/AuthLayout.vue'
+import { login } from '@/routes'
+import { store } from '@/routes/register'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 </script>
 
 <template>
     <AuthBase
-        title="Create an account"
-        description="Enter your details below to create your account"
+        :title="t('ui.register.title')"
+        :description="t('ui.register.description')"
     >
-        <Head title="Register" />
+        <Head :title="t('ui.register.page_title')" />
 
         <Form
             v-bind="store.form()"
@@ -27,7 +30,7 @@ import { store } from '@/routes/register';
         >
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="name">Name</Label>
+                    <Label for="name">{{ t('forms.name') }}</Label>
                     <Input
                         id="name"
                         type="text"
@@ -36,13 +39,13 @@ import { store } from '@/routes/register';
                         :tabindex="1"
                         autocomplete="name"
                         name="name"
-                        placeholder="Full name"
+                        :placeholder="t('forms.name_placeholder')"
                     />
                     <InputError :message="errors.name" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="email">{{ t('forms.email') }}</Label>
                     <Input
                         id="email"
                         type="email"
@@ -56,7 +59,7 @@ import { store } from '@/routes/register';
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="password">Password</Label>
+                    <Label for="password">{{ t('forms.password') }}</Label>
                     <Input
                         id="password"
                         type="password"
@@ -64,13 +67,13 @@ import { store } from '@/routes/register';
                         :tabindex="3"
                         autocomplete="new-password"
                         name="password"
-                        placeholder="Password"
+                        :placeholder="t('forms.password')"
                     />
                     <InputError :message="errors.password" />
                 </div>
 
                 <div class="grid gap-2">
-                    <Label for="password_confirmation">Confirm password</Label>
+                    <Label for="password_confirmation">{{ t('forms.password_confirm') }}</Label>
                     <Input
                         id="password_confirmation"
                         type="password"
@@ -78,7 +81,7 @@ import { store } from '@/routes/register';
                         :tabindex="4"
                         autocomplete="new-password"
                         name="password_confirmation"
-                        placeholder="Confirm password"
+                        :placeholder="t('forms.password_confirm')"
                     />
                     <InputError :message="errors.password_confirmation" />
                 </div>
@@ -91,17 +94,17 @@ import { store } from '@/routes/register';
                     data-test="register-user-button"
                 >
                     <Spinner v-if="processing" />
-                    Create account
+                    {{ t('buttons.account_create')}}
                 </Button>
             </div>
 
             <div class="text-center text-sm text-muted-foreground">
-                Already have an account?
+                {{ t('ui.register.already_registered') }}
                 <TextLink
                     :href="login()"
                     class="underline underline-offset-4"
                     :tabindex="6"
-                    >Log in</TextLink
+                    >{{ t('buttons.login') }}</TextLink
                 >
             </div>
         </Form>

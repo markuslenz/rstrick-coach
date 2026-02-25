@@ -182,4 +182,8 @@ return [
         ],
         'edit_user' => 'Benutzer bearbeiten',
     ],
+    'locales' => [
+        'de' => 'Deutsch',
+        'en' => 'Englisch',
+    ],
 ];

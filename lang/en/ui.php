@@ -15,7 +15,7 @@ return [
         'page_title' => 'Welcome',
         'title' => 'What is <b>RS Trick Coach</b>?',
         'description' => '
-            <b>RS Trick Coach<b> is an app designed to help you learn rope skipping tricks. The idea is that through lots of repetition, you will become so familiar with the tricks that you will be able to judge them more quickly as a referee.
+            <b>RS Trick Coach</b> is an app designed to help you learn rope skipping tricks. The idea is that through lots of repetition, you will become so familiar with the tricks that you will be able to judge them more quickly as a referee.
             <br/>
             The idea for the project came to me when I was training to become a rope skipping judge. As a non-active jumper, I found it difficult to quickly identify and evaluate the jumps. I then had the idea of creating a website/app where you can watch rope skipping jumps on video and enter the corresponding level of difficulty and type of judge.
             <br/>
@@ -181,5 +181,9 @@ return [
             'description' => 'Are you sure you want to delete the User',
         ],
         'edit_user' => 'Edit User',
+    ],
+    'locales' => [
+        'de' => 'German',
+        'en' => 'English',
     ],
 ];

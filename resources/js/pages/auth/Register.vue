@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { Form, Head } from '@inertiajs/vue3'
+import { Form, Head, usePage } from '@inertiajs/vue3'
 
 import InputError from '@/components/InputError.vue'
 import TextLink from '@/components/TextLink.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Spinner } from '@/components/ui/spinner'
 import AuthBase from '@/layouts/AuthLayout.vue'
 import { login } from '@/routes'
 import { store } from '@/routes/register'
 import { useI18n } from 'vue-i18n'
+
+const page = usePage()
 
 const { t } = useI18n()
 </script>
@@ -56,6 +59,21 @@ const { t } = useI18n()
                         placeholder="email@example.com"
                     />
                     <InputError :message="errors.email" />
+                </div>
+
+                <div class="grid gap-2">
+                    <Label for="locale">{{ t('forms.locale') }}</Label>
+                    <Select name="locale" id="locale">
+                        <SelectTrigger>
+                            <SelectValue :placeholder="t('forms.locale_placeholder')" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem v-for="l in page.props.locales" :key="l" :value="l">
+                                {{ t('ui.locales.' + l) }}
+                            </SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <InputError :message="errors.locale" />
                 </div>
 
                 <div class="grid gap-2">

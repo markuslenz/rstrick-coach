@@ -13,6 +13,8 @@ return [
     */
     'email' => 'Email address',
     'id' => 'ID',
+    'locale' => 'Language',
+    'locale_placeholder' => 'Select your language',
     'name' => 'Name',
     'name_placeholder' => 'Full name',
     'password' => 'Password',

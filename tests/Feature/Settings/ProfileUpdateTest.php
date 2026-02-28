@@ -42,6 +42,7 @@ test('email verification status is unchanged when the email address is unchanged
         ->patch(route('profile.update'), [
             'name' => 'Test User',
             'email' => $user->email,
+            'locale' => 'en',
         ]);
 
     $response

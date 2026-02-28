@@ -20,7 +20,7 @@ test('profile information can be updated', function () {
         ->patch(route('profile.update'), [
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'level' => 'en',
+            'locale' => 'en',
         ]);
 
     $response

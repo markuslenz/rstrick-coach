@@ -11,6 +11,7 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 import { email } from '@/routes/password';
 import { useI18n } from 'vue-i18n'
+import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 
 const { t } = useI18n()
 
@@ -25,6 +26,8 @@ defineProps<{
         :description="t('ui.forgot_password.description')"
     >
         <Head :title="t('ui.forgot_password.page_title')" />
+
+        <LocaleSwitcher />
 
         <div
             v-if="status"

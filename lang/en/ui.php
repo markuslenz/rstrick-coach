@@ -54,15 +54,53 @@ return [
     ],
     'tricks' => [
         'title' => 'Tricks',
+        'edit' => 'Edit Trick',
+        'create' => 'Create Trick',
+        'view' => 'View Trick',
+        'dialog' => [
+            'title' => 'Delete Trick',
+            'description' => 'Are you sure you want to delete the Trick',
+        ],
+        'alert' => [
+            'title' => 'Notification',
+            'description' => 'Please reference either a Youtube Video or upload a video.',
+        ],
     ],
     'judges' => [
         'title' => 'Judge Types',
+        'create' => 'Create Judge',
+        'edit' => 'Edit Judge',
+        'view' => 'View Judge',
+        'description' => 'Maintain an existing Judge',
+        'dialog' => [
+            'title' => 'Delete Judge',
+            'description' => 'Are you sure you want to delete the Judge Type ',
+        ],
     ],
     'dashboard' => [
         'title' => 'Dashboard',
+        'salutation' => 'Hello',
+        'greetings' => 'Here are your training statistics',
+        'total_trainings' => 'Total Trainings',
+        'passed_trainings' => 'Passed Trainings',
+        'success_rate' => 'Success Rate',
     ],
     'trainings' => [
         'title' => 'Trainings',
+        'greeting' => 'Hello {name}',
+        'information' => 'Which kind of training do you want to start today?',
+        'all_difficulties' => 'All Judge Tricks',
+        'result' => 'Result',
+        'question' => 'Question',
+        'answer' => 'Your answer',
+        'trick' => 'Trick',
+        'correct' => 'Yes, correct!',
+        'wrong' => 'Sorry, that\'s wrong',
+        'next_trick' => 'Next Trick',
+        'attempt_question' => 'Answer the following questions:',
+        'judge_question' => 'Which Judge eavluates this trick?',
+        'level_question' => 'Which level is the trick?',
+        'trick_question' => 'What\'s the trick called?',
     ],
     'alerts' => [
         'warning' =>  'Warning',
@@ -186,4 +224,9 @@ return [
         'de' => 'German',
         'en' => 'English',
     ],
+    'roles' => [
+        'admin' => 'Administrator',
+        'editor' => 'Editor',
+        'user' => 'User',
+    ]
 ];

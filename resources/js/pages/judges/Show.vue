@@ -6,6 +6,9 @@ import judgeRoutes from '@/routes/judges'
 import trickRoutes from '@/routes/tricks'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Eye } from 'lucide-vue-next'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
     judge: Object,
@@ -14,11 +17,11 @@ const props = defineProps({
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Judge Types',
+        title: t('ui.judges.title'),
         href: judgeRoutes.index().url,
     },
     {
-        title: 'View Judge Type',
+        title: t('ui.judges.view'),
         href: judgeRoutes.show(props.judge.id).url,
     },
 ]
@@ -27,7 +30,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
 
-        <Head title="View Judge Type" />
+        <Head :title="t('ui.judges.title')" />
 
         <div class="px-4 py-4">
             <h1 class="mb-4 text-2xl font-bold text-heading">{{ judge.name }}</h1>
@@ -36,20 +39,20 @@ const breadcrumbItems: BreadcrumbItem[] = [
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Trick</TableHead>
-                            <TableHead>Level</TableHead>
+                            <TableHead>{{ t('forms.trick_name') }}</TableHead>
+                            <TableHead class="text-center">{{ t('forms.level') }}</TableHead>
                             <TableHead></TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         <TableRow v-for="trick in props.tricks" :key="trick.id">
                             <TableCell>{{ trick.name }}</TableCell>
-                            <TableCell>Level {{ trick.level }}</TableCell>
+                            <TableCell class="text-center">{{ trick.level }}</TableCell>
                             <TableCell>
                                 <div>
                                     <Link :href="trickRoutes.show(trick.id).url"  class="inline-icon-text">
                                         <Eye class="h-4 w-4" />
-                                        View
+                                        {{ t('buttons.view') }}
                                     </Link>
                                 </div>
                             </TableCell>

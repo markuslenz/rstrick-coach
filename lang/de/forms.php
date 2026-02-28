@@ -11,8 +11,14 @@ return [
     | tweak each of these messages here.
     |
     */
+    'description' => 'Beschreibung',
     'email' => 'E-Mail-Adresse',
     'id' => 'ID',
+    'judge' => 'Kampfrichter',
+    'judge_name' => 'Kampfrichter-Name',
+    'judge_select' => 'Wähle den Kampfrichter',
+    'level' => 'Level',
+    'level_select' => 'Wähle den Level',
     'locale' => 'Sprache',
     'locale_placeholder' => 'Bitte wähle eine Sprache',
     'name' => 'Name',
@@ -23,4 +29,7 @@ return [
     'password_new' => 'Neues Passwort',
     'role' => 'Rolle',
     'saved' => 'Gespeichert.',
+    'trick_name' => 'Trick-Name',
+    'video' => 'Video',
+    'youtube' => 'Youtube URL',
 ];

@@ -24,6 +24,7 @@ return [
     'enable_2fa' => '2FA aktivieren',
     'login' => 'Anmelden',
     'logout' => 'Ausloggen',
+    'new_trick' => 'Neuer Trick',
     'open_menu' => 'Open menu',
     'password_save' => 'Passwort speichern',
     'recovery_codes' => 'Wiederherstellungscodes',
@@ -33,5 +34,8 @@ return [
     'reset_link' => 'Link zum Zurücksetzen des E-Mail-Passworts',
     'reset_password' => 'Passwort zurücksetzen',
     'save' => 'Speichern',
+    'submit' => 'Absenden',
+    'trick_update' => 'Trick ändern',
     'user_update' => 'Benutzer ändern',
+    'view' => 'Anzeigen',
 ];

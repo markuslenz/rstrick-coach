@@ -8,14 +8,17 @@ import { Input } from '@/components/ui/input'
 import InputError from '@/components/InputError.vue'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Judge Types',
+        title: t('ui.judges.title'),
         href: index().url,
     },
     {
-        title: 'Create Judge Type',
+        title: t('ui.judges.create'),
         href: create().url,
     },
 ]
@@ -33,18 +36,18 @@ const handleSubmit = () => {
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
 
-        <Head title="Create Judge Type" />
+        <Head :title="t('ui.judges.create')" />
 
         <div class="px-4 py-4">
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
                 <div class="space-y-2">
-                    <Label for="name">Judge Type name</Label>
+                    <Label for="name">{{ t('forms.judge_name') }}</Label>
                     <Input id="name" type="text" name="name" required autofocus autocomplete="judge-type-name" v-model="form.name"/>
                     <InputError :message="form.errors.name" />
                 </div>
                 <Button type="submit" :disabled="form.processing">
                     <Spinner v-if="form.processing" />
-                    Add Judge Type
+                    {{ t('buttons.save') }}
                 </Button>
             </form>
         </div>

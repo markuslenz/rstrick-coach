@@ -11,8 +11,14 @@ return [
     | tweak each of these messages here.
     |
     */
+    'description' => 'Description',
     'email' => 'Email address',
     'id' => 'ID',
+    'judge' => 'Judge Type',
+    'judge_name' => 'Judge name',
+    'judge_select' => 'Select Judge Type',
+    'level' => 'Level',
+    'level_select' => 'Select Level',
     'locale' => 'Language',
     'locale_placeholder' => 'Select your language',
     'name' => 'Name',
@@ -23,4 +29,7 @@ return [
     'password_new' => 'New Password',
     'role' => 'Role',
     'saved' => 'Saved.',
+    'trick_name' => 'Trick-Name',
+    'video' => 'Video',
+    'youtube' => 'Youtube URL',
 ];

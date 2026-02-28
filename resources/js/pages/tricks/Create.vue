@@ -12,14 +12,18 @@ import { Textarea } from '@/components/ui/textarea'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { AlertCircleIcon } from 'lucide-vue-next'
 import { Spinner } from '@/components/ui/spinner'
+import { useI18n } from 'vue-i18n'
+import { formatPostcssSourceMap } from 'vite'
+
+const { t } = useI18n()
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Tricks',
+        title: t('ui.tricks.title'),
         href: index().url,
     },
     {
-        title: 'Create Trick',
+        title: t('ui.tricks.create'),
         href: create().url,
     },
 ]
@@ -49,21 +53,21 @@ defineProps({
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
 
-        <Head title="Create Trick" />
+        <Head :title="t('ui.tricks.create')" />
 
         <div class="px-4 py-4">
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
                 <div class="space-y-2">
-                    <Label for="name">Trick name</Label>
+                    <Label for="name">{{ t('forms.trick_name') }}</Label>
                     <Input id="name" type="text" name="name" required autofocus autocomplete="trick-name"
                         v-model="form.name" />
                     <InputError :message="form.errors.name" />
                 </div>
                 <div class="space-y-2">
-                    <Label for="judge_id">Judge Type</Label>
+                    <Label for="judge_id">{{ t('forms.judge')}}</Label>
                     <Select v-model="form.judge_id" name="judge_id" id="judge_id">
                         <SelectTrigger>
-                            <SelectValue placeholder="Select Judge Type" />
+                            <SelectValue :placeholder="t('forms.judge_select')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="judge in judgeOptions" :key="judge.id" :value="judge.id">
@@ -74,10 +78,10 @@ defineProps({
                     <InputError :message="form.errors.judge_id" />
                 </div>
                 <div class="space-y-2">
-                    <Label for="level">Level</Label>
+                    <Label for="level">{{ t('forms.level') }}</Label>
                     <Select v-model="form.level" id="level" name="level">
                         <SelectTrigger>
-                            <SelectValue placeholder="Select Level" />
+                            <SelectValue :placeholder="t('forms.level_select')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="option in levelOptions" :key="option.value" :value="option.value">
@@ -90,31 +94,31 @@ defineProps({
                 <div class="space-y-2">
                     <Alert>
                         <AlertCircleIcon />
-                        <AlertTitle>Notification</AlertTitle>
+                        <AlertTitle>{{ t('ui.tricks.alert.title') }}</AlertTitle>
                         <AlertDescription>
-                            <p>Please reference either a Youtube Video or upload a video.</p>
+                            <p>{{ t('ui.tricks.alert.description') }}</p>
                         </AlertDescription>
                     </Alert>
                 </div>
                 <div class="space-y-2">
-                    <Label for="youtube">Youtube URL</Label>
+                    <Label for="youtube">{{ t('forms.youtube') }}</Label>
                     <Input id="youtube" type="text" name="youtube" autocomplete="trick-youtube"
                         v-model="form.youtube" />
                     <InputError :message="form.errors.youtube" />
                 </div>
                 <div class="space-y-2">
-                    <Label for="video">Video</Label>
+                    <Label for="video">{{ t('forms.video') }}</Label>
                     <Input id="video" type="file" accept="video/*" name="video" @change="form.video = $event.target.files[0]" />
                     <InputError :message="form.errors.video" />
                 </div>
                 <div class="space-y-2">
-                    <Label for="description">Description</Label>
+                    <Label for="description">{{ t('forms.description') }}</Label>
                     <Textarea id="description" type="text" name="description" v-model="form.description" placeholder="Enter a description here" />
                     <InputError :message="form.errors.description" />
                 </div>
                 <Button type="submit" :disabled="form.processing">
                     <Spinner v-if="form.processing" />
-                    Add Trick
+                    {{ t('buttons.save') }}
                 </Button>
             </form>
         </div>

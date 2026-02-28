@@ -24,6 +24,7 @@ return [
     'enable_2fa' => 'Enable 2FA',
     'login' => 'Log in',
     'logout' => 'Log out',
+    'new_trick' => 'New Trick',
     'open_menu' => 'Open menu',
     'password_save' => 'Save password',
     'recovery_codes' => 'Recovery Codes',
@@ -33,5 +34,8 @@ return [
     'reset_link' => 'Email password reset link',
     'reset_password' => 'Reset password',
     'save' => 'Save',
+    'submit' => 'Submit',
+    'trick_update' => 'Update Trick',
     'user_update' => 'Update User',
+    'view' => 'View',
 ];

@@ -88,7 +88,7 @@ const props = defineProps<Props>()
                             <TableCell class="text-center">{{ user.id }}</TableCell>
                             <TableCell>{{ user.name }}</TableCell>
                             <TableCell>{{ user.email }}</TableCell>
-                            <TableCell>{{ user.role }}</TableCell>
+                            <TableCell>{{ t('ui.roles.' + user.role) }}</TableCell>
                             <TableCell class="text-center space-x-2">
                                 <div v-if="user.id !== admin.id">
                                     <DropdownMenu>

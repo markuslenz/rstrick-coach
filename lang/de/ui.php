@@ -54,15 +54,53 @@ return [
     ],
     'tricks' => [
         'title' => 'Tricks',
+        'edit' => 'Trick bearbeiten',
+        'create' => 'Trick erstellen',
+        'view' => 'Trick anzeigen',
+        'dialog' => [
+            'title' => 'Trick Löschen',
+            'description' => 'Bist Du Dir sicher, dass Du den folgenden Trick löschen möchtest: ',
+        ],
+        'alert' => [
+            'title' => 'Hinweis',
+            'description' => 'Bitte entweder ein Youtube-Video referenzieren oder ein Video hochladen.',
+        ],
     ],
     'judges' => [
         'title' => 'Kampfrichter',
+        'create' => 'Kampfrichter erstellen',
+        'edit' => 'Kampfrichter bearbeiten',
+        'view' => 'Kampfrichter anzeigen',
+        'description' => 'Bearbeite einen bestehenden Kampfrichter',
+        'dialog' => [
+            'title' => 'Kampfrichter löschen',
+            'description' => 'Bist Du Dir sicher, dass Du den folgenden Kamfrichter löschen möchtest: ',
+        ],
     ],
     'dashboard' => [
         'title' => 'Dashboard',
+        'salutation' => 'Hallo',
+        'greetings' => 'Hier sind Deine Trainings-Statistiken',
+        'total_trainings' => 'Absolvierte Trainings',
+        'passed_trainings' => 'Bestandene Trainings',
+        'success_rate' => 'Erfolgsquote',
     ],
     'trainings' => [
         'title' => 'Training',
+        'greeting' => 'Hallo {name}',
+        'information' => 'Welches der folgenden Trainings möchtest Du heute starten?',
+        'all_difficulties' => 'Alle Kampfrichter Tricks',
+        'result' => 'Ergebnis',
+        'question' => 'Frage',
+        'answer' => 'Deine Antwort',
+        'trick' => 'Trick',
+        'correct' => 'Ja, das ist richtig!',
+        'wrong' => 'Leider falsch!',
+        'next_trick' => 'Nächster Trick',
+        'attempt_question' => 'Beantworte die folgenden Fragen:',
+        'judge_question' => 'Welcher Kampfrichter bewertet diesen Trick?',
+        'level_question' => 'Welchen Level hat der Trick?',
+        'trick_question' => 'Wie heißt der Trick?',
     ],
     'alerts' => [
         'warning' => 'Warnung',
@@ -186,4 +224,9 @@ return [
         'de' => 'Deutsch',
         'en' => 'Englisch',
     ],
+    'roles' => [
+        'admin' => 'Administrator',
+        'editor' => 'Redakteur',
+        'user' => 'Benutzer',
+    ]
 ];

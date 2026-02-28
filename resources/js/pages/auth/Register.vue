@@ -12,10 +12,12 @@ import AuthBase from '@/layouts/AuthLayout.vue'
 import { login } from '@/routes'
 import { store } from '@/routes/register'
 import { useI18n } from 'vue-i18n'
+import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 
 const page = usePage()
 
 const { t } = useI18n()
+
 </script>
 
 <template>
@@ -24,6 +26,8 @@ const { t } = useI18n()
         :description="t('ui.register.description')"
     >
         <Head :title="t('ui.register.page_title')" />
+
+        <LocaleSwitcher />
 
         <Form
             v-bind="store.form()"

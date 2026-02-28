@@ -1,4 +1,5 @@
 import '../css/app.css';
+import "flag-icons/css/flag-icons.min.css";
 
 import { createInertiaApp, usePage } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';

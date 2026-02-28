@@ -3,6 +3,9 @@ import { Head } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { index, show } from '@/routes/tricks'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({ 
     trick: Object, 
@@ -12,12 +15,12 @@ const props = defineProps({
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Tricks',
+        title: t('ui.tricks.title'),
         href: index().url,
     },
     {
-        title: 'View Trick',
-        href: '',
+        title: t('ui.tricks.view'),
+        href: show(props.trick.id).url,
     },
 ]
 </script>
@@ -25,7 +28,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
 
-        <Head title="View Trick" />
+        <Head :title="t('ui.tricks.view')" />
 
         <div class="px-4 py-4">
             <h1 class="mb-4 text-2xl font-bold text-heading">Trick: {{ props.trick.name }}</h1>
@@ -43,9 +46,18 @@ const breadcrumbItems: BreadcrumbItem[] = [
             <div v-if="props.trick.video_url">
                 <video controls width="100%" :src="'/storage/' + props.trick.video_url"></video>
             </div>
-            <div>Difficulty Level: {{ props.trick.level }}</div>
-            <div>Difficulty Judge: {{ props.judge.name }}</div>
-            <div>Description: {{ props.trick.description }}</div>
+            <div class="space-x-4 pt-6">
+                <span class="font-bold">{{ t('forms.level') }}:</span>
+                <span>{{ props.trick.level }}</span>
+            </div>
+            <div class="space-x-4">
+                <span class="font-bold">{{ t('forms.judge') }}:</span>
+                <span>{{ props.judge.name }}</span>
+            </div>
+            <div class="space-x-4">
+                <span class="font-bold">{{ t('forms.description') }}:</span>
+                <span>{{ props.trick.description }}</span>
+            </div>
         </div>
     </AppLayout>
 </template>

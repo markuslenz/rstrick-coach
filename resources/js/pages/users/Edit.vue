@@ -78,14 +78,14 @@ const handleSubmit = () => {
                     <InputError :message="form.errors.email" />
                 </div>
                 <div class="space-y-2">
-                    <Label for="role">{{ t('forms.name') }}</Label>
+                    <Label for="role">{{ t('forms.role') }}</Label>
                     <Select v-model="form.role" name="role" id="role">
                         <SelectTrigger>
                             <SelectValue placeholder="Select Role" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="option in roleOptions" :key="option.value" :value="option.value">
-                                {{ option.label }}
+                                {{ t('ui.roles.' + option.value) }}
                             </SelectItem>
                         </SelectContent>
                     </Select>

@@ -33,6 +33,8 @@ withDefaults(
             class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl"
         >
             <nav class="flex items-center justify-end gap-4">
+                <Link @click="changeLocale('de')"><span class="fi fi-de"></span></Link>
+                <Link @click="changeLocale('en')"><span class="fi fi-gb"></span></Link>
                 <Link
                     v-if="$page.props.auth.user"
                     :href="dashboard()"
@@ -57,10 +59,6 @@ withDefaults(
                 </template>
             </nav>
         </header>
-        <div class="flex items-center justify-center gap-2">
-            <span @click="changeLocale('de')" class="">DE</span>
-            <span @click="changeLocale('en')" class="">EN</span>
-        </div>
         <div
             class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0"
         >
@@ -83,7 +81,6 @@ withDefaults(
                 </div>
             </main>
         </div>
-        <pre class="flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded-lg lg:max-w-4xl lg:flex-row">{{ page.props.locale }}</pre>
         <div class="hidden h-14.5 lg:block"></div>
     </div>
 </template>

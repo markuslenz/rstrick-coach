@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Form, Head, usePage } from '@inertiajs/vue3'
+import { Form, Head } from '@inertiajs/vue3'
 
 import InputError from '@/components/InputError.vue'
 import TextLink from '@/components/TextLink.vue'
@@ -14,8 +14,6 @@ import { store } from '@/routes/login'
 import { request } from '@/routes/password'
 import { useI18n } from 'vue-i18n'
 import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
-
-const page = usePage()
 
 const { t } = useI18n()
 

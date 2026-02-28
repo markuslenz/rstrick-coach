@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { Head, Link, router, usePage } from '@inertiajs/vue3'
+import { Head, Link, router } from '@inertiajs/vue3'
 import { dashboard, login, register } from '@/routes'
 import { useI18n } from 'vue-i18n'
-
-const page = usePage()
 
 const { t } = useI18n()
 

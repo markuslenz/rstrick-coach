@@ -10,6 +10,9 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { show, store } from '@/routes/trainings'
 import { Spinner } from '@/components/ui/spinner'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({ 
     trick: Object,
@@ -22,7 +25,7 @@ const props = defineProps({
 
 const breadcrumbItems: BreadcrumbItem[] = [
     {
-        title: 'Training',
+        title: t('ui.trainings.title'),
         href: '',
     },
 ];
@@ -44,7 +47,7 @@ const handleSubmit = () => {
 <template>
     <AppLayout :breadcrumbs="breadcrumbItems">
 
-        <Head title="Training" />
+        <Head :title="t('ui.trainings.title')" />
 
         <div class="px-4 py-4">
             <div class="youtube-container" v-if="props.trick.youtube">
@@ -60,15 +63,15 @@ const handleSubmit = () => {
             <div v-if="props.trick.video_url">
                 <video controls width="100%" :src="'/storage/' + props.trick.video_url"></video>
             </div>
-            <h1 class="mb-4 mt-4 text-2xl font-bold text-heading">Answer the following questions:</h1>
+            <h1 class="mb-4 mt-4 text-2xl font-bold text-heading">{{ t('ui.trainings.attempt_question') }}</h1>
             <form @submit.prevent="handleSubmit" class="w-8/12 space-y-4">
                 <Input id="judgeID" type="hidden" name="judgeID" v-model="form.judgeID" />
                 <Input id="trick_id" type="hidden" name="trick_id" v-model="form.trick_id" />
                 <div class="space-y-2">
-                    <Label for="judge_id">Which Judge eavluates this trick?</Label>
+                    <Label for="judge_id">{{ t('ui.trainings.judge_question') }}</Label>
                     <Select v-model="form.judge_id" name="judge_id" id="judge_id">
                         <SelectTrigger>
-                            <SelectValue placeholder="Select responsible Judge" />
+                            <SelectValue :placeholder="t('forms.judge_select')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="judge in judgeOptions" :key="judge.id" :value="judge.id">
@@ -79,10 +82,10 @@ const handleSubmit = () => {
                     <InputError :message="form.errors.judge_id" />
                 </div>
                 <div class="space-y-2">
-                    <Label for="level">Which level is the trick?</Label>
+                    <Label for="level">{{ t('ui.trainings.level_question') }}</Label>
                     <Select v-model="form.level" id="level" name="level">
                         <SelectTrigger>
-                            <SelectValue placeholder="Select Level" />
+                            <SelectValue :placeholder="t('forms.level_select')" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem v-for="option in levelOptions" :key="option.value" :value="option.value">
@@ -92,7 +95,7 @@ const handleSubmit = () => {
                     </Select>
                 </div>
                 <div class="space-y-2">
-                    <Label for="trick_name">What's the trick called?</Label>
+                    <Label for="trick_name">{{ t('ui.trainings.trick_question') }}</Label>
                     <RadioGroup v-model="form.trick_name" id="trick_name" name="trick_name">
                         <div class="flex items-center space-x-2" v-for="line in tricks" :key="line.id">
                             <RadioGroupItem :id="line.id" :value="line.name"/>
@@ -103,7 +106,7 @@ const handleSubmit = () => {
                 </div>
                 <Button type="submit" :disabled="form.processing">
                     <Spinner v-if="form.processing" />
-                    Submit
+                    {{ t('buttons.submit') }}
                 </Button>
             </form>
         </div>

@@ -150,7 +150,6 @@ const props = defineProps<Props>()
                 </Table>
             </div>
         </div>
-
     </AppLayout>
 </template>
 

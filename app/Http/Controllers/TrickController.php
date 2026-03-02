@@ -20,7 +20,7 @@ class TrickController extends Controller
      */
     public function index()
     {
-        $tricks = Trick::with('judge')->get();
+        $tricks = Trick::with(['judge','translations'])->get();
         return Inertia::render('tricks/Index',compact('tricks'));
     }
 
@@ -29,7 +29,10 @@ class TrickController extends Controller
      */
     public function create()
     {
+        // Check authorizations
         $this->authorize('create', Trick::class);
+
+        // Render the View
         return Inertia::render('tricks/Create', [
             'levelOptions' => LevelEnum::options(),
             'judgeOptions' => Judge::all(),
@@ -41,7 +44,9 @@ class TrickController extends Controller
      */
     public function store(Request $request)
     {
+        // Check authorizations
         $this->authorize('create', Trick::class);
+        
         // If validation passes, the data is automatically validated
         $validatedData = $request->validate([
             'name'        => 'required|string|max:120|unique:tricks',
@@ -53,23 +58,30 @@ class TrickController extends Controller
         ]);
 
         // Handle uploaded Video
-        $file = $request->file('video');
-        $randomName = Str::random(12) . '.' . $file->getClientOriginalExtension();
-        $path = $file->storeAs('videos', $randomName, 'public');
+        if($request->file) {
+            $file = $request->file('video');
+            $randomName = Str::random(12) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('videos', $randomName, 'public');
+        } else {
+            $path = null;
+        }
 
         // Create new trick using validated data
-        Trick::create([
-            'name'        => $request->name,
+        $trick = Trick::create([
             'youtube'     => $request->youtube,
             'video_url'   => $path,
             'level'       => $request->level,
-            'judge_id'    => $request->judge_id,
-            'description' => $request->description
-
+            'judge_id'    => $request->judge_id
         ]);
 
-        session()->flash('message', 'Trick created successfully!');
-        return Inertia::location(route('tricks.index'));
+        // Save translations
+        $trick->translations()->create([
+            'locale'      => app()->getLocale(),
+            'name'        => $request->name,
+            'description' => $request->description
+        ]);
+
+        return Inertia::location(route('tricks.index'))->with('message', __('messages.tricks.create'));
     }
 
     /**
@@ -77,6 +89,7 @@ class TrickController extends Controller
      */
     public function show(Trick $trick)
     {
+        // Render the View
         return Inertia::render('tricks/Show',[
             'trick' => $trick,
             'judge' => Judge::findOrFail($trick->judge_id),
@@ -88,7 +101,10 @@ class TrickController extends Controller
      */
     public function edit(Trick $trick)
     {
+        // Check authorizations
         $this->authorize('update', $trick);
+
+        // Render the View
         return Inertia::render('tricks/Edit',[
             'trick' => $trick,
             'levelOptions' => LevelEnum::options(),
@@ -101,7 +117,9 @@ class TrickController extends Controller
      */
     public function update(Request $request, Trick $trick)
     {
+        // Check authorizations
         $this->authorize('update', $trick);
+        
         // If validation passes, the data is automatically validated
         $validatedData = $request->validate([
             'name'        => 'required|string|max:120',
@@ -125,16 +143,19 @@ class TrickController extends Controller
         }
         
         $trick->update([
-            'name'        => $request->name,
-            'youtube'     => $request->youtube,
-            'video_url'   => $path,
-            'level'       => $request->level,
-            'judge_id'    => $request->judge_id,
-            'description' => $request->description
+            'youtube'   => $request->youtube,
+            'video_url' => $path,
+            'level'     => $request->level,
+            'judge_id'  => $request->judge_id
         ]);
 
-        session()->flash('message', 'Trick updated successfully!');
-        return Inertia::location(route('tricks.edit',['trick' => $trick->id]));
+        $trick->translations()->update([
+            'name'        => $request->name,
+            'description' => $request->description,
+        ]);
+
+        // Redirect back to the edit page
+        return Inertia::location(route('tricks.edit',['trick' => $trick->id]))->with('message', __('messages.tricks.update'));
     }
 
     /**
@@ -142,8 +163,13 @@ class TrickController extends Controller
      */
     public function destroy(Trick $trick)
     {
+        // Check authorizations
         $this->authorize('delete', $trick);
+
+        // Delete the trick
         $trick->delete();
-        return redirect()->route('tricks.index')->with('message','Trick deleted successfully!');
+
+        // Redirect to the index page
+        return redirect()->route('tricks.index')->with('message',__('messages.tricks.delete'));
     }
 }

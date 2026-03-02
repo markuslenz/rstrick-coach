@@ -17,7 +17,10 @@ class UsersController extends Controller
      */
     public function index()
     {
+        // Check authorizations
         $this->authorize('viewAny', User::class);
+
+        // Render page
         return Inertia::render('users/Index',[
             'users' => User::all(),
         ]);
@@ -28,7 +31,10 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        // Check authorizations
         $this->authorize('viewAny', User::class);
+
+        // Render page
         return Inertia::render('users/Edit',[
             'user' => $user,
             'roleOptions' => RoleEnum::options(),
@@ -40,7 +46,9 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // Check authorizations
         $this->authorize('viewAny', User::class);
+
         // If validation passes, the data is automatically validated
         $validatedData = $request->validate([
             'name'  => 'required|string|max:120',
@@ -48,9 +56,11 @@ class UsersController extends Controller
             'role'  => 'required'
         ]);
 
+        // Update the user record
         $user->update($validatedData);
 
-        return redirect()->route('users.edit', $user->id)->with('message', 'User updated successfully!');
+        // Redirect to index page
+        return redirect()->route('users.edit', $user->id)->with('message', __('messages.users.update'));
     }
 
     /**
@@ -58,8 +68,13 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        // Check authorizations
         $this->authorize('viewAny', User::class);
+
+        // Delete the user record
         $user->delete();
-        return redirect()->route('users.index')->with('message','User deleted successfully!');
+
+        // REdirect to index page
+        return redirect()->route('users.index')->with('message',__('messages.users.delete'));
     }
 }

@@ -14,7 +14,7 @@ class TrickTranslation extends Model
      */
     protected $fillable = [
         'locale',
-        'title',
+        'name',
         'description'
     ];
 

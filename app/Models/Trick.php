@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Trick extends Model
 {
+    protected $appends = ['name', 'description'];
+
     protected static function booted()
     {
         static::deleting(function ($trick) {
@@ -25,12 +27,10 @@ class Trick extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'youtube',
         'video_url',
         'level',
         'judge_id',
-        'description'
     ];
 
     /**
@@ -65,5 +65,15 @@ class Trick extends Model
         $locale ??= app()->getLocale();
 
         return $this->translations->where('locale', $locale)->first();
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->translation()?->name;
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->translation()?->description;
     }
 }

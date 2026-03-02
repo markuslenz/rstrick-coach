@@ -42,7 +42,7 @@ class JudgeController extends Controller
 
         Judge::create($validatedData);
 
-        return redirect()->route('judges.index')->with('message', 'Judge Type created successfully!');
+        return redirect()->route('judges.index')->with('message', __('messages.judges.create'));
     }
 
     /**
@@ -75,7 +75,7 @@ class JudgeController extends Controller
             'name' => 'required|string|max:120'
         ]);
         $judge->update($validatedData);
-        return redirect()->route('judges.edit', $judge->id)->with('message', 'Judge Type updated successfully!');
+        return redirect()->route('judges.edit', $judge->id)->with('message', __('messages.judges.update'));
     }
 
     /**
@@ -85,6 +85,6 @@ class JudgeController extends Controller
     {
         $this->authorize('delete',Judge::class);
         $judge->delete();
-        return redirect()->route('judges.index')->with('message', 'Judge Type deleted successfully!');
+        return redirect()->route('judges.index')->with('message', __('messages.judges.delete'));
     }
 }

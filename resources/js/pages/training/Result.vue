@@ -70,7 +70,7 @@ const props = defineProps({
             </div>
             <div class="container py-2 px-2 mx-0 min-w-full flex flex-col items-center">
                 <Button class="inline-flex items-center justify-center w-8/12 font-bold" size="lg">
-                    <Link v-if="judgeID" :href="show(judgeID).url">{{ t('ui.traings.next_Trick') }}</Link>
+                    <Link v-if="judgeID" :href="show(judgeID).url">{{ t('ui.traings.next_trick') }}</Link>
                     <Link v-else :href="show().url">{{ t('ui.trainings.next_trick') }}</Link>
                 </Button>
             </div>
